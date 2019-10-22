@@ -1,0 +1,16 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+*vim*
+sandbox/
+.env
+debug.log
+!.cache
+.cache/*
+!.cache/.gitkeep
+*.gem

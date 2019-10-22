@@ -1,0 +1,17 @@
+---
+:default:
+    :ip: null
+    :port: null
+    :response_timeout: 1
+    :log_level: info
+    :cache_dir:
+        :nix: ~/.cache/rogue-craft/
+        :windows: null
+
+:local:
+    :ip: 127.0.0.1
+    :port: 8081
+    :log_level: debug
+    :cache_dir:
+        :nix: ./cache
+        :windows: null
