@@ -9,7 +9,7 @@
 *vim*
 sandbox/
 .env
-*.log
+debug.log
 !.cache
 .cache/*
 !.cache/.gitkeep
