@@ -14,6 +14,12 @@ class Client::Session
     dump
   end
 
+  def clear
+    @token = nil
+
+    File.delete(@store_path) if File.exist?(@store_path)
+  end
+
   private
   def load
     return unless File.exist?(@store_path)
