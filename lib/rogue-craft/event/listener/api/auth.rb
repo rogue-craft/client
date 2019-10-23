@@ -26,6 +26,10 @@ class Event::Listener::Auth < RPC::InjectedHandler
     end
   end
 
+  def on_activation(event)
+    send_msg(target: 'auth/activation', params: {activation_code: event[:activation_code]})
+  end
+
   def on_logout
     send_msg(target: 'auth/logout')
 
