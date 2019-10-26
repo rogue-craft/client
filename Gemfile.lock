@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     rogue-craft (0.1.0)
-      dotenv (~> 2.6)
       dry-auto_inject (~> 0.6.0)
       dry-container (~> 0.6.0)
       dry-events (~> 0.1.0)
@@ -14,8 +13,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.1.5)
-    dotenv (2.7.1)
-    dry-auto_inject (0.6.0)
+    dry-auto_inject (0.6.1)
       dry-container (>= 0.3.4)
     dry-configurable (0.8.2)
       concurrent-ruby (~> 1.0)
@@ -26,7 +24,7 @@ GEM
     dry-core (0.4.7)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.2)
-    dry-events (0.1.0)
+    dry-events (0.1.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4)
       dry-equalizer (~> 0.2)

@@ -27,8 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dry-auto_inject", "~> 0.6.0"
   spec.add_runtime_dependency "dry-events", "~> 0.1.0"
 
-  spec.add_runtime_dependency "dotenv", "~> 2.6"
-
   spec.add_development_dependency "bundler", "~> 2"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "minitest", "~> 5.0"

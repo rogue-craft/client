@@ -6,12 +6,6 @@ class Event::Publisher
     :camera_movement
   ].freeze
 
-  def initialize
-    super
-    subscribe_listeners
-  end
-
-  private
   def subscribe_listeners
     EVENTS.each(&method(:register_event))
 

@@ -2,6 +2,8 @@ class Client::Session
   attr_reader :token
 
   def initialize(store_dir)
+    FileUtils.mkdir_p(store_dir)
+
     @store_path = "#{store_dir}/session"
     @token = nil
     load
@@ -18,6 +20,8 @@ class Client::Session
     @token = nil
 
     File.delete(@store_path) if File.exist?(@store_path)
+
+    dump
   end
 
   private

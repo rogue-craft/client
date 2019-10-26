@@ -1,17 +1,30 @@
 require_relative 'rogue-craft/container_loader'
 
 class RogueCraft
+  TIMEOUT = 0.05.freeze
+
   def run
-    container = Dependency.container
+    container = ContainerLoader.load
+
+    menu_system = container.resolve(:menu_system)
+    config = container.resolve(:config)
+    game_loop = container.resolve(:game_loop)
+    publisher = container.resolve(:event)
+
+    until config.server_selected?
+      menu_system.render
+      game_loop.update
+      sleep(TIMEOUT)
+    end
 
     EM.run do
-      connection = EM::connect(ENV['IP'], ENV['PORT'], Client::Connection)
-      container = ContainerLoader.load(connection)
-      game_loop = container.resolve(:game_loop)
+      connection = EM::connect(config[:ip], config[:port], Client::Connection)
 
-      container.resolve(:menu_system).render
+      ContainerLoader.register_rpc(container, connection)
+      publisher.subscribe_listeners
+
       EM.error_handler {|e| game_loop.close(e) }
-      EM.add_periodic_timer(0.05) { game_loop.update }
+      EM.add_periodic_timer(TIMEOUT) { game_loop.update }
     end
   rescue Interrupt
   end
