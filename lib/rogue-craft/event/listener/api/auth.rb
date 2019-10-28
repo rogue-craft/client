@@ -6,11 +6,7 @@ class Event::Listener::Auth < RPC::InjectedHandler
     form = event[:form]
 
     send_msg(target: 'auth/registration', params: form.data) do |response|
-      if response[:violations]
-        form.errors = response[:violations]
-      else
-        form.success.call
-      end
+      handle_form(response, form)
     end
   end
 
@@ -27,12 +23,23 @@ class Event::Listener::Auth < RPC::InjectedHandler
   end
 
   def on_activation(event)
-    send_msg(target: 'auth/activation', params: {activation_code: event[:activation_code]})
+    form = event[:form]
+
+    send_msg(target: 'auth/activation', params: form.data) do |response|
+      handle_form(response, form)
+    end
   end
 
   def on_logout
-    send_msg(target: 'auth/logout')
+    send_msg(target: 'auth/logout') { @session.clear }
+  end
 
-    @session.clear
+  private
+  def handle_form(response, form)
+    if response[:violations] || false == response.code?(RPC::Code::OK)
+      form.errors = response.fetch(:violations, {'Unexpected error': 'Please try again later :('})
+    else
+      form.success.call
+    end
   end
 end

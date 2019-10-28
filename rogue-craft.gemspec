@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "state_machines", "~> 0.5"
   spec.add_runtime_dependency "ncursesw", "~> 1.4"
   spec.add_runtime_dependency "eventmachine", "~> 1.2.7"
+  spec.add_runtime_dependency "os", "~> 1.0.0"
 
   spec.add_runtime_dependency "dry-container", "~> 0.6.0"
   spec.add_runtime_dependency "dry-auto_inject", "~> 0.6.0"

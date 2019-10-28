@@ -5,7 +5,7 @@ class LogoutTest < MiniTest::Test
 
   def test_happy_path
     dispatcher = mock
-    dispatcher.expects(:dispatch).with do |msg|
+    dispatcher.expects(:dispatch).yields.with do |msg|
       assert_equal('auth/logout', msg.target)
     end
 

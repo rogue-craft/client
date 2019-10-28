@@ -8,6 +8,7 @@ class Menu::MenuSystem
       servers: Menu::Servers,
       main: Menu::MainMenu,
       registration: Menu::Registration,
+      activation: Menu::Activation,
       login: Menu::Login
     }
     @instances = {}
@@ -19,9 +20,10 @@ class Menu::MenuSystem
     transition all - :servers => :servers, on: :open_servers
     transition all - :main => :main, on: :open_main
     transition all - :registration => :registration, on: :open_registration
+    transition all - :activation => :activation, on: :open_activation
     transition all - :login => :login, on: :open_login
 
-    after_transition on: all, do: :create_menu
+    after_transition on: all, do: :open_menu
   end
 
   def render
@@ -39,7 +41,7 @@ class Menu::MenuSystem
   end
 
   private
-  def create_menu(transition)
+  def open_menu(transition)
     type = transition.to.to_sym
 
     if @current_menu

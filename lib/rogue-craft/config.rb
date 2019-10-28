@@ -31,17 +31,21 @@ class Config
 
   private
   def load(path)
-    cli_opts = {}
+    cli_opts = {
+      env: :default
+    }
 
     OptionParser.new do |opts|
-      opts.on("-e ENV", "--env ENV", "Set alternative env config") {|env| cli_opts[:env] = env }
+      opts.on("-e ENV", "--env ENV", "Set alternative env config") do |env|
+        cli_opts[:env] = env.to_sym
+      end
     end.parse!
 
     env = cli_opts.fetch(:env, :default).to_sym
-    cfg = YAML::load(File.open('./config.yml'))
+    cfg = YAML::load(File.open(path))
 
     @values = cfg[:default]
-      .merge(cfg[env])
+      .merge(cfg.fetch(env, {}))
       .merge(cli_opts)
   end
 end

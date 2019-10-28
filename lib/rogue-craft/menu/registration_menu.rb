@@ -13,7 +13,7 @@ class Menu::Registration < Menu::BaseMenu
       fields,
       40,
       proc { |form| @event.publish(:registration, {form: form}) },
-      proc { @system.open_login }
+      proc { @system.open_activation }
     )
   end
 end

@@ -3,6 +3,7 @@ require 'ncursesw'
 require 'state_machines'
 require 'ostruct'
 require 'fileutils'
+require 'os'
 
 require 'dry-container'
 require 'dry-auto_inject'
@@ -62,7 +63,9 @@ class ContainerLoader
     c[:game_loop] = -> { Loop.new }
 
     c[:connection] = -> { Client::Connection.new }
-    c[:session] = -> { Client::Session.new(ENV['CACHE_DIR']) }
+    c[:session] = -> do
+      Client::Session.new(config[:cache_dir][OS.posix? ? :nix : :windows])
+    end
 
     c
   end
