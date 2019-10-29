@@ -24,11 +24,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "eventmachine", "~> 1.2.7"
   spec.add_runtime_dependency "os", "~> 1.0.0"
 
-  spec.add_runtime_dependency "dry-container", "~> 0.6.0"
+  spec.add_runtime_dependency "dry-container", "~> 0.7.0"
   spec.add_runtime_dependency "dry-auto_inject", "~> 0.6.0"
   spec.add_runtime_dependency "dry-events", "~> 0.1.0"
 
-  spec.add_development_dependency "bundler", "~> 2"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "mocha", "~> 1.8"

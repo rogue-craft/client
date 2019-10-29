@@ -20,7 +20,6 @@ class Menu::BaseMenu
     width = @items.max_by(&:width).width + 2
     height = @items.reduce(1) {|acc, i| acc + i.height }
 
-    @rendered = false
     @window = @interface.center_window(height, width)
   end
 
@@ -33,6 +32,10 @@ class Menu::BaseMenu
   end
 
   def navigate(input)
+    if @keymap.is?(input, :escape)
+      @system.open_main
+      return
+    end
 
     current = @items[@active_index]
 
@@ -41,12 +44,11 @@ class Menu::BaseMenu
       return
     end
 
-    case input
-    when @keymap[:menu_up]
+    if @keymap.is?(input, :menu_up)
       @active_index -= 1
-    when @keymap[:menu_down]
+    elsif @keymap.is?(input, :menu_down)
       @active_index += 1
-    when @keymap[:enter]
+    elsif @keymap.is?(input, :submit)
       @items[@active_index].data.call
     end
 
@@ -63,8 +65,7 @@ class Menu::BaseMenu
   end
 
   def clear
-    @window.clear
-    @window.refresh
+    @items.each(&:clear)
   end
 
   private

@@ -1,24 +1,14 @@
 class Display::Interface
 
-  attr_reader :main_window, :info_window
-
   def initialize
     init_ncurses
-
-    @main_window = Ncurses::WINDOW.new(Ncurses.getmaxy(Ncurses.stdscr), Ncurses.getmaxx(Ncurses.stdscr) * 0.8, 0, 0)
   end
 
   def read_input
-    input = Ncurses.getch
-    Ncurses.flushinp
-
-    input
+    Ncurses.getch
   end
 
   def close
-    # @main_window.delwin
-    # @info_window.delwin
-
     Ncurses.echo
     Ncurses.nl
     Ncurses.endwin
@@ -35,6 +25,11 @@ class Display::Interface
     x = (max_x - width) / 2
 
     Ncurses::WINDOW.new(height, width, y, x)
+  end
+
+  def clear
+    Ncurses.clear
+    Ncurses.refresh
   end
 
   private

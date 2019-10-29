@@ -14,4 +14,7 @@ class Menu::Item::BaseItem
 
   def close
   end
+
+  def clear
+  end
 end

@@ -5,12 +5,10 @@ class Loop
   def update
     unless @game_state.closed?
       begin
-        input = @interface.read_input
 
-        unless -1 == input
+        until -1 == (input = @interface.read_input)
           if @game_state.in_menu?
             @menu_system.navigate(input)
-            return
           else
             dispatch_input(input)
           end
@@ -32,7 +30,7 @@ class Loop
   private
   def dispatch_input(input)
     if @keymap.camera_keys.include?(input)
-      @event.publish(:camera_movement, key: input)
+      # @event.publish(:camera_movement, key: input)
     end
   end
 

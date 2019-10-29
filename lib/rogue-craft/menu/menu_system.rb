@@ -45,6 +45,7 @@ class Menu::MenuSystem
     type = transition.to.to_sym
 
     if @current_menu
+      @interface.clear
       @current_menu.clear
     end
 

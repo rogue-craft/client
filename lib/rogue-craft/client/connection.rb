@@ -8,10 +8,8 @@ class Client::Connection < EventMachine::Connection
     # p "HelloClient"
   end
 
-  def unbind(reason)
+  def unbind(reason = nil)
     raise Exception.new(reason.to_s)
-
-    # @game_loop.close(reason)
   end
 
   def receive_data(raw)

@@ -15,6 +15,12 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @render_existing = false
   end
 
+  def clear
+    @render_existing = true
+    @underlying_form.unpost_form
+    @errors = {}
+  end
+
   def close
     if @underlying_form
       @underlying_form.unpost_form
@@ -61,50 +67,57 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @underlying_form = form
   end
 
+
   private
   def display_existing
     return unless @render_existing
 
     win = @underlying_form.form_win
-    curr = @underlying_form.current_field
-
-    @underlying_form.form_fields.each.with_index do |field, i|
-      model = @field_model_map[field]
-
-      next if model && model.password?
-
-      field.set_field_back(field == curr ? Ncurses::A_BOLD : Ncurses::A_UNDERLINE)
-    end
 
     full = height
     y = full / 2
 
     (full - y).times { |i| win.mvaddstr(y + i, 0, " ".rjust(@width))}
 
+    @underlying_form.post_form
+
     @errors.each do |field, errors|
       win.mvaddstr(y, 0, field.to_s + ': ' + errors.join(', '))
       y += 2
     end
+
+    Ncurses::Form.pos_form_cursor(@underlying_form)
 
     @render_existing = false
   end
 
   public
   def navigate(input)
-    case input
-    when @keymap[:menu_up]
+    if @keymap.is?(input, :menu_up)
       @underlying_form.form_driver(Ncurses::Form::REQ_PREV_FIELD)
       @underlying_form.form_driver(Ncurses::Form::REQ_END_LINE)
-   when @keymap[:menu_down]
+    elsif @keymap.is?(input, :menu_down)
       @underlying_form.form_driver(Ncurses::Form::REQ_NEXT_FIELD)
       @underlying_form.form_driver(Ncurses::Form::REQ_END_LINE)
-    when Ncurses::KEY_BACKSPACE
+    elsif @keymap.is?(input, :menu_right)
+      @underlying_form.form_driver(Ncurses::Form::REQ_RIGHT_CHAR)
+    elsif @keymap.is?(input, :menu_left)
+      @underlying_form.form_driver(Ncurses::Form::REQ_LEFT_CHAR)
+    elsif @keymap.is?(input, :start_of_line)
+      @underlying_form.form_driver(Ncurses::Form::REQ_BEG_LINE)
+    elsif @keymap.is?(input, :enf_of_line)
+      @underlying_form.form_driver(Ncurses::Form::REQ_END_LINE)
+    elsif @keymap.is?(input, :backspace)
       @underlying_form.form_driver(Ncurses::Form::REQ_DEL_PREV)
-    when @keymap[:enter]
+    elsif @keymap.is?(input, :delete)
+      @underlying_form.form_driver(Ncurses::Form::REQ_DEL_CHAR)
+    elsif @keymap.is?(input, :submit)
       @submit.call(self)
     else
       @underlying_form.form_driver(input)
     end
+
+    @render_existing = true
   end
 
   def height
