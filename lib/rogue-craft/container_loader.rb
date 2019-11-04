@@ -64,7 +64,7 @@ class ContainerLoader
 
     c[:connection] = -> { Client::Connection.new }
     c[:session] = -> do
-      Client::Session.new(config[:cache_dir][OS.posix? ? :nix : :windows])
+      Client::Session.new(config[:cache_dir])
     end
 
     c

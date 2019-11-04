@@ -47,5 +47,8 @@ class Config
     @values = cfg[:default]
       .merge(cfg.fetch(env, {}))
       .merge(cli_opts)
+      .map do |key, val|
+        :cache_dir == key ? value[OS.posix? ? :nix : :windows] : value
+      end
   end
 end
