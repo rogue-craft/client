@@ -63,9 +63,7 @@ class ContainerLoader
     c[:game_loop] = -> { Loop.new }
 
     c[:connection] = -> { Client::Connection.new }
-    c[:session] = -> do
-      Client::Session.new(config[:cache_dir])
-    end
+    c[:session] = -> { Client::Session.new }
 
     c
   end
