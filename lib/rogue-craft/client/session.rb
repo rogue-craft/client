@@ -1,6 +1,6 @@
 class Client::Session
 
-  include Dependency[:config, :serializer]
+  include Dependency[:config]
 
   def initialize(args)
     super
@@ -28,18 +28,18 @@ class Client::Session
     File.delete(path) if File.exist?(path)
   end
 
-  private
   def start
     path = store_path
 
-    return unless File.exist?(path)
+    return unless path && File.exist?(path)
 
-    @values = @serializer.unserialize(File.binread(path))
+    @values = MessagePack.unpack(File.binread(path))
   end
 
+  private
   def dump
     File.open(store_path, 'w+') do |f|
-      f.write(@serializer.serialize(@values))
+      f.write(MessagePack.pack(@values))
     end
   end
 

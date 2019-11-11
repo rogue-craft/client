@@ -3,6 +3,7 @@ class Event::Publisher
 
   EVENTS = [
     :registration, :login, :activation,
+    :validate_token,
     :camera_movement
   ].freeze
 
@@ -11,6 +12,7 @@ class Event::Publisher
 
     subscribe(Event::Listener::CameraMovement.new)
     subscribe(Event::Listener::Auth.new)
+    subscribe(Event::Listener::Meta.new)
 
     RogueCraftCommon.register_common_listeners(self, Dependency.container)
   end

@@ -29,6 +29,7 @@ require 'rogue-craft-common'
 
 require_relative './menu/menu'
 require_relative './display/display'
+require_relative './handler/handler'
 require_relative './event/event'
 require_relative './client/client'
 

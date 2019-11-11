@@ -6,4 +6,3 @@ require "minitest/autorun"
 require 'mocha/minitest'
 
 Dependency.container.config.resolver = -> (container, key) { nil }
-

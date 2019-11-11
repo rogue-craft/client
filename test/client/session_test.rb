@@ -10,7 +10,7 @@ class SessionTest < MiniTest::Test
   end
 
   def test_immutable_token
-    session = new_serializer
+    session = new_session
     session.token = 'initial'
 
     assert_raises(RuntimeError) do
@@ -19,19 +19,19 @@ class SessionTest < MiniTest::Test
   end
 
   def test_persistance
-    session = new_serializer
+    session = new_session
     assert(false == File.exist?(SESSION_FILE))
 
     session.token = "Test1"
     assert_equal("Test1", session.token)
     assert(File.exist?(SESSION_FILE))
 
-    session2 = new_serializer
+    session2 = new_session
     assert_equal("Test1", session2.token)
   end
 
   def test_clear
-    session = new_serializer
+    session = new_session
 
     session.token = "Test1"
     assert_equal("Test1", session.token)
@@ -43,8 +43,8 @@ class SessionTest < MiniTest::Test
   end
 
   private
-  def new_serializer
-    Client::Session.new(config: mock_config, serializer: RPC::Serializer.new(mock))
+  def new_session
+    Client::Session.new(config: mock_config)
   end
 
   def mock_config

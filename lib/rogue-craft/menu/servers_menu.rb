@@ -1,6 +1,6 @@
 class Menu::Servers < Menu::BaseMenu
 
-  include Dependency[:config]
+  include Dependency[:config, :session]
 
   def navigate(input)
     return if @keymap.is?(input, :escape)
@@ -17,7 +17,12 @@ class Menu::Servers < Menu::BaseMenu
 
       item(name.to_s, proc do
         @config.select_server(address)
-        @system.open_main
+        @session.start
+
+        @event.publish(:validate_token, {
+          valid: @system.method(:open_logged_in),
+          invalid: @system.method(:open_main)
+        })
       end)
     end
   end
