@@ -21,21 +21,13 @@ class RogueCraft
       connection = EM::connect(config[:ip], config[:port], Client::Connection)
 
       ContainerLoader.register_rpc(container, connection)
-      publisher.subscribe_listeners
 
-      intial_token_valitaion(publisher, menu_system)
+      publisher.subscribe_listeners
+      publisher.publish(:validate_token)
 
       EM.error_handler {|e| game_loop.close(e) }
       EM.add_periodic_timer(TIMEOUT) { game_loop.update }
     end
   rescue Interrupt
-  end
-
-  private
-  def intial_token_valitaion(publisher, menu_system)
-    publisher.publish(:validate_token, {
-      valid: menu_system.method(:open_logged_in),
-      invalid: menu_system.method(:open_main)
-    })
   end
 end

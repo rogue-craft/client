@@ -10,7 +10,7 @@ end
 class TokenAwareHandlerTest < TestCase
 
   def test_handler
-    session = mock_session
+    session = stub_session
     response = RPC::Message.from
 
     dispatcher = mock

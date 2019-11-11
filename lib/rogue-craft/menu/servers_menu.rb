@@ -18,11 +18,7 @@ class Menu::Servers < Menu::BaseMenu
       item(name.to_s, proc do
         @config.select_server(address)
         @session.start
-
-        @event.publish(:validate_token, {
-          valid: @system.method(:open_logged_in),
-          invalid: @system.method(:open_main)
-        })
+        @event.publish(:validate_token)
       end)
     end
   end
