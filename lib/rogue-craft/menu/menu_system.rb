@@ -9,7 +9,8 @@ class Menu::MenuSystem
       main: Menu::MainMenu,
       registration: Menu::Registration,
       activation: Menu::Activation,
-      login: Menu::Login
+      login: Menu::Login,
+      logged_in: Menu::LoggedIn
     }
     @instances = {}
 
@@ -22,6 +23,7 @@ class Menu::MenuSystem
     transition all - :registration => :registration, on: :open_registration
     transition all - :activation => :activation, on: :open_activation
     transition all - :login => :login, on: :open_login
+    transition all - :logged_in => :logged_in, on: :open_logged_in
 
     after_transition on: all, do: :open_menu
   end

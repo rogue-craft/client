@@ -4,7 +4,10 @@ require_relative '../../../test'
 class LoginTest < MiniTest::Test
 
   def test_happy_path
-    form = OpenStruct.new(data: 'hello')
+    success = mock
+    success.expects(:call)
+
+    form = OpenStruct.new(data: 'hello', success: success)
     response = RPC::Message.from(code: RPC::Code::OK, params: {token: 'user-token'})
 
     session = mock

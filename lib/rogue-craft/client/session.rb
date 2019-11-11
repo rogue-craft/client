@@ -34,8 +34,6 @@ class Client::Session
 
     return unless File.exist?(path)
 
-    p path
-    exit
     @values = @serializer.unserialize(File.binread(path))
   end
 

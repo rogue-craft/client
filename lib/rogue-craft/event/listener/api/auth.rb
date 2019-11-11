@@ -18,6 +18,7 @@ class Event::Listener::Auth < RPC::InjectedHandler
         form.errors = response[:violations]
       else
         @session.token = response[:token]
+        form.success.call
       end
     end
   end
