@@ -2,7 +2,7 @@ class Event::Publisher
   include Dry::Events::Publisher[:default]
 
   EVENTS = [
-    :registration, :login, :activation,
+    :registration, :login, :activation, :logout,
     :validate_token,
     :camera_movement
   ].freeze

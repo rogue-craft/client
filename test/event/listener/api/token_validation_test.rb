@@ -16,8 +16,7 @@ class TokenValidationTest < TestCase
     session = stub_session(token: nil)
 
     menu = mock
-    menu.expects(:open_logged_in).never
-    menu.expects(:open_main).never
+    menu.expects(:open_main).once
 
     listener = Event::Listener::Meta.new(message_dispatcher: dispatcher, session: session, menu_system: menu)
 

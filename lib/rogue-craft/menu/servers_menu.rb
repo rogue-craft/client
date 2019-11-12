@@ -12,7 +12,7 @@ class Menu::Servers < Menu::BaseMenu
   def create_items
     env = @config[:env]
 
-    @config[:servers].map do |name,address|
+    @config[:servers].each do |name, address|
       next if :local == name && env != :local
 
       item(name.to_s, proc do

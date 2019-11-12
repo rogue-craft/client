@@ -31,8 +31,11 @@ class Event::Listener::Auth < RPC::InjectedHandler
     end
   end
 
-  def on_logout
-    send_msg(target: 'auth/logout') { @session.clear }
+  def on_logout(event)
+    send_msg(target: 'auth/logout') do 
+      @session.clear
+      @menu_system.open_main
+    end
   end
 
   private

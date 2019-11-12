@@ -12,7 +12,10 @@ class LogoutTest < MiniTest::Test
     session = mock
     session.expects(:clear)
 
-    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: session)
+    menu = mock
+    menu.expects(:open_main).once
+
+    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: session, menu_system: menu)
     listener.on_logout
   end
 end
