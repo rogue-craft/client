@@ -77,7 +77,7 @@ class Menu::BaseMenu
     @items << Menu::Item::Field.new(name, data)
   end
 
-  def form(fields, width, submit, success = nil)
+  def form(fields, width, submit)
     @items << Menu::Item::Form.new(fields, @keymap, @color_bag, width, submit, success)
   end
 

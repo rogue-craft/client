@@ -1,8 +1,8 @@
 class Menu::Item::Form < Menu::Item::BaseItem
 
-  attr_reader :width, :success
+  attr_reader :width
 
-  def initialize(models, keymap, color_bag, width, submit, success)
+  def initialize(models, keymap, color_bag, width, submit)
     @models = models
     @field_model_map = {}
     @underlying_form = nil
@@ -10,7 +10,6 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @width = width
     @color_bag = color_bag
     @submit = submit
-    @success = success
     @errors = {}
     @render_existing = false
   end

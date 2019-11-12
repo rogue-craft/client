@@ -4,16 +4,16 @@ require_relative '../../../test'
 class LoginTest < MiniTest::Test
 
   def test_happy_path
-    success = mock
-    success.expects(:call)
-
-    form = OpenStruct.new(data: 'hello', success: success)
+    form = OpenStruct.new(data: 'hello')
     response = RPC::Message.from(code: RPC::Code::OK, params: {token: 'user-token'})
+
+    menu = mock
+    menu.expects(:open_logged_in).once
 
     session = mock
     session.expects(:token=).with(response[:token])
 
-    run_login_test(form, response, session)
+    run_login_test(form, response, session, menu)
   end
 
   def test_acces_denied
@@ -26,7 +26,7 @@ class LoginTest < MiniTest::Test
   end
 
   private
-  def run_login_test(form, response, session = nil)
+  def run_login_test(form, response, session = nil, menu = nil)
     dispatcher = mock
     dispatcher.expects(:dispatch).yields(response).with do |msg|
       assert_equal('auth/login', msg.target)
@@ -35,7 +35,7 @@ class LoginTest < MiniTest::Test
 
     event = {form: form}
 
-    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: session)
+    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: session, menu_system: menu)
     listener.on_login(event)
   end
 end

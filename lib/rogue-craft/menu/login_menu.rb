@@ -10,8 +10,7 @@ class Menu::Login < Menu::BaseMenu
     form(
       fields,
       40,
-      proc { |form| @event.publish(:login, {form: form}) },
-      proc { @system.open_logged_in }
+      proc { |form| @event.publish(:login, {form: form}) }
     )
   end
 end

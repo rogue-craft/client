@@ -9,8 +9,7 @@ class Menu::Activation < Menu::BaseMenu
     form(
       fields,
       40,
-      proc { |form| @event.publish(:activation, {form: form}) },
-      proc { @system.open_login }
+      proc { |form| @event.publish(:activation, {form: form}) }
     )
   end
 end

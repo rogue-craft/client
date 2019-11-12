@@ -12,14 +12,13 @@ class ActivationTest < MiniTest::Test
       assert_equal('code123', msg[:activation_code])
     end
 
-    callback = mock
-    callback.expects(:call).once
+    menu = mock
+    menu.expects(:open_login).once
 
     form = mock
     form.expects(:data).once.returns({activation_code: 'code123'})
-    form.expects(:success).once.returns(callback)
 
-    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: mock)
+    listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: mock, menu_system: menu)
     listener.on_activation({activation_code: 'code123', form: form})
   end
 end

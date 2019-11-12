@@ -9,9 +9,24 @@ class TokenValidationTest < TestCase
     run_test(RPC::Code::OK, stub_session, menu)
   end
 
+  def test_no_token
+    dispatcher = mock
+    dispatcher.expects(:dispatch).never
+
+    session = stub_session(token: nil)
+
+    menu = mock
+    menu.expects(:open_logged_in).never
+    menu.expects(:open_main).never
+
+    listener = Event::Listener::Meta.new(message_dispatcher: dispatcher, session: session, menu_system: menu)
+
+    listener.on_validate_token({})
+  end
+
   def test_invalid_token
     session = mock
-    session.expects(:token).returns('token123')
+    session.expects(:token).at_least_once.returns('token123')
     session.expects(:clear)
 
     menu = mock
