@@ -6,7 +6,7 @@ class ServerSelectionTest < TestCase
     menu = mock
     menu.expects(:open_main)
 
-    run_test(RPC::Code::OK, mock_session(logged_in: false), menu)
+    run_test(mock_session(logged_in: false), menu)
   end
 
   def test_has_valid_token
@@ -15,7 +15,7 @@ class ServerSelectionTest < TestCase
 
     dispatcher = mock_dispatcher(RPC::Code::OK)
 
-    run_test(RPC::Code::OK, mock_session(logged_in: true), menu, dispatcher)
+    run_test(mock_session(logged_in: true), menu, dispatcher)
   end
 
   def test_has_invalid_token
@@ -27,7 +27,7 @@ class ServerSelectionTest < TestCase
     session = mock_session(logged_in: true)
     session.expects(:clear)
 
-    run_test(RPC::Code::OK, session, menu, dispatcher)
+    run_test(session, menu, dispatcher)
   end
 
   private
@@ -43,7 +43,7 @@ class ServerSelectionTest < TestCase
     dispatcher
   end
 
-  def run_test(response_code, session, menu_system, dispatcher = nil)
+  def run_test(session, menu_system, dispatcher = nil)
     event = {server: 'server'}
 
     config = mock
