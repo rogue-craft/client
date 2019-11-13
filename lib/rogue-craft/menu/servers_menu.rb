@@ -16,9 +16,8 @@ class Menu::Servers < Menu::BaseMenu
       next if :local == name && env != :local
 
       item(name.to_s, proc do
-        @config.select_server(address)
         @session.start
-        @event.publish(:validate_token)
+        @event.publish(:server_selection, {server: address})
       end)
     end
   end

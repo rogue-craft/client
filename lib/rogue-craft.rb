@@ -7,23 +7,13 @@ class RogueCraft
     container = ContainerLoader.load
 
     menu_system = container.resolve(:menu_system)
-    config = container.resolve(:config)
     game_loop = container.resolve(:game_loop)
     publisher = container.resolve(:event)
 
-    until config.server_selected?
-      menu_system.render
-      game_loop.update
-      sleep(TIMEOUT)
-    end
-
     EM.run do
-      connection = EM::connect(config[:ip], config[:port], Client::Connection)
-
-      ContainerLoader.register_rpc(container, connection)
+      ContainerLoader.register_rpc(container)
 
       publisher.subscribe_listeners
-      publisher.publish(:validate_token)
 
       EM.error_handler {|e| game_loop.close(e) }
       EM.add_periodic_timer(TIMEOUT) { game_loop.update }

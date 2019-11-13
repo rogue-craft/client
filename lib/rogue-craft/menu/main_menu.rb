@@ -5,6 +5,6 @@ class Menu::MainMenu < Menu::BaseMenu
     item('Login', @system.method(:open_login))
     item('Registration', @system.method(:open_registration))
     item('Account Activation', @system.method(:open_activation))
-    item('Exit', @game_state.method(:close))
+    item('Disconnect', -> () { @event.publish(:disconnection) } )
   end
 end

@@ -63,7 +63,6 @@ class ContainerLoader
     c[:renderer] = -> { Display::Renderer.new }
     c[:game_loop] = -> { Loop.new }
 
-    c[:connection] = -> { Client::Connection.new }
     c[:session] = -> { Client::Session.new }
 
     c
@@ -78,10 +77,10 @@ class ContainerLoader
     logger
   end
 
-  def self.register_rpc(c, default_connection)
+  def self.register_rpc(c)
     cfg = c.resolve(:config)
 
-    c[:default_connection] = -> { default_connection }
+    c[:default_connection] = -> { Client::ConnectionWrapper.new }
     c[:serializer] = -> { RPC::Serializer.new(c[:logger]) }
     c[:router] = -> { RPC::Router.new(RouteMap.new, c[:logger]) }
     c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger] ) }

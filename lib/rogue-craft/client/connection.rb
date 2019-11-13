@@ -1,5 +1,7 @@
 class Client::Connection < EventMachine::Connection
 
+  include Dependency[:event]
+
   def post_init
     start_tls
   end
@@ -9,14 +11,10 @@ class Client::Connection < EventMachine::Connection
   end
 
   def unbind(reason = nil)
-    raise Exception.new(reason.to_s)
+    # @TODO publish event?
   end
 
   def receive_data(raw)
-    event.publish(:receive_data, {raw: raw, connection: self})
-  end
-
-  def event
-    @event ||= Dependency.container.resolve(:event)
+    @event.publish(:receive_data, {raw: raw, connection: self})
   end
 end
