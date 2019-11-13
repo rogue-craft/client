@@ -46,10 +46,14 @@ class ServerSelectionTest < TestCase
   def run_test(session, menu_system, dispatcher = nil)
     event = {server: 'server'}
 
+    session_seq = sequence('session')
+
     config = mock
-    config.expects(:select_server)
+    config.expects(:select_server).with(event[:server]).in_sequence(session_seq)
     config.expects(:[]).with(:ip).returns('ip')
     config.expects(:[]).with(:port).returns('port')
+
+    session.expects(:start).in_sequence(session_seq)
 
     EM.expects(:connect).with('ip', 'port', Client::Connection).returns(:connection)
 
@@ -67,6 +71,6 @@ class ServerSelectionTest < TestCase
     )
     assert(listener.is_a?(Handler::TokenAwareHandler))
 
-    listener.on_server_selection({})
+    listener.on_server_selection(event)
   end
 end

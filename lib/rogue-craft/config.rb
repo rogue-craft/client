@@ -25,6 +25,11 @@ class Config
     @values[:port] = port
   end
 
+  def unselect_server
+    @values[:ip] = nil
+    @values[:port] = nil
+  end
+
   def server_selected?
     (!!@values[:ip] && !!@values[:port])
   end

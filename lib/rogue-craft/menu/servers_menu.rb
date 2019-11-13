@@ -1,6 +1,6 @@
 class Menu::Servers < Menu::BaseMenu
 
-  include Dependency[:config, :session]
+  include Dependency[:config]
 
   def navigate(input)
     return if @keymap.is?(input, :escape)
@@ -15,10 +15,9 @@ class Menu::Servers < Menu::BaseMenu
     @config[:servers].each do |name, address|
       next if :local == name && env != :local
 
-      item(name.to_s, proc do
-        @session.start
+      item(name.to_s, -> () {
         @event.publish(:server_selection, {server: address})
-      end)
+      })
     end
   end
 end

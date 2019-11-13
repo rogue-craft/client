@@ -4,6 +4,7 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
 
   def on_server_selection(event)
     @config.select_server(event[:server])
+    @session.start
 
     @default_connection.close_connection
     @default_connection.underlying = EM::connect(@config[:ip], @config[:port], Client::Connection)
@@ -31,7 +32,8 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
   public
   def on_disconnection(event)
     @default_connection.close_connection
-
+    @session.close
+    @config.unselect_server
     @menu_system.open_servers
   end
 end

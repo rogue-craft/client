@@ -26,7 +26,7 @@ class Client::Session
   end
 
   def clear
-    @values = {}
+    close
     path = store_path
 
     File.delete(path) if File.exist?(path)
@@ -38,6 +38,10 @@ class Client::Session
     return unless path && File.exist?(path)
 
     @values = MessagePack.unpack(File.binread(path))
+  end
+
+  def close
+    @values = {}
   end
 
   private

@@ -9,7 +9,13 @@ class DisconnectTest < TestCase
     menu = mock
     menu.expects(:open_servers)
 
-    listener = Event::Listener::Connection.new(default_connection: connection, menu_system: menu)
+    session = mock
+    session.expects(:close)
+
+    config = mock
+    config.expects(:unselect_server)
+
+    listener = Event::Listener::Connection.new(default_connection: connection, menu_system: menu, session: session, config: config)
     listener.on_disconnection({})
   end
 end
