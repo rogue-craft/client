@@ -42,6 +42,18 @@ class SessionTest < MiniTest::Test
     assert_nil(session.token)
   end
 
+  def test_close
+    session = new_session
+
+    session.token = "Test1"
+    assert_equal("Test1", session.token)
+    assert(File.exist?(SESSION_FILE))
+
+    session.close
+    assert(File.exist?(SESSION_FILE))
+    assert_nil(session.token)
+  end
+
   private
   def new_session
     Client::Session.new(config: mock_config)
