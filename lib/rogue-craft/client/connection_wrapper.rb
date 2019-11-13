@@ -22,8 +22,6 @@ class Client::ConnectionWrapper
     end
 
     @underlying = underlying
-
-    # raise Exception.new(@underlying)
   end
 
   def initialized?

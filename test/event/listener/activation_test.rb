@@ -1,4 +1,4 @@
-require_relative '../../../test'
+require_relative '../../test'
 
 
 class ActivationTest < MiniTest::Test

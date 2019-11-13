@@ -21,6 +21,10 @@ class Client::Session
     dump
   end
 
+  def logged_in?
+    nil != @values[:token]
+  end
+
   def clear
     @values = {}
     path = store_path

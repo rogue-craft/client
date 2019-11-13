@@ -1,4 +1,4 @@
-require_relative '../../../test'
+require_relative '../../test'
 
 
 class LogoutTest < MiniTest::Test
@@ -16,6 +16,6 @@ class LogoutTest < MiniTest::Test
     menu.expects(:open_main).once
 
     listener = Event::Listener::Auth.new(message_dispatcher: dispatcher, session: session, menu_system: menu)
-    listener.on_logout
+    listener.on_logout({})
   end
 end

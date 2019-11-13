@@ -8,16 +8,17 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
     @default_connection.close_connection
     @default_connection.underlying = EM::connect(@config[:ip], @config[:port], Client::Connection)
 
-    unless @default_connection.initialized?
-      raise Exception.new
-    end
-
-    unless @session.token
+    unless @session.logged_in?
       @menu_system.open_main
       return
     end
 
-    send_msg(target: 'meta/validate_token') do |response|
+    check_token_validity
+  end
+
+  private
+  def check_token_validity
+    send_msg(target: 'meta/ping') do |response|
       if response.code?(RPC::Code::OK)
         @menu_system.open_logged_in
       else
@@ -27,6 +28,7 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
     end
   end
 
+  public
   def on_disconnection(event)
     @default_connection.close_connection
 
