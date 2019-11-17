@@ -1,8 +1,8 @@
 ---
 :default:
     :servers:
-        :local: localhost:8081
-        :test: ____:0000#
+        :local: 213131:8081
+        :test: ____:0000
     :response_timeout: 1
     :log_level: info
     :log_file: ~/.rogue-craft/rogue-craft.log

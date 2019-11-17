@@ -1,4 +1,4 @@
-class Event::Listener::Connection < Handler::TokenAwareHandler
+class Event::Listener::Connection < Handler::AuthenticatedHandler
 
   include Dependency[:menu_system, :config, :event, :default_connection]
 

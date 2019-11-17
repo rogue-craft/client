@@ -11,7 +11,7 @@ class Config
   def [](key)
     value = @values[key]
 
-    raise ArgumentError.new("Unknown config key #{key}") unless value
+    raise KeyError.new("Unknown config key #{key}") unless value
 
     value
   end
@@ -19,7 +19,7 @@ class Config
   def select_server(server)
     ip, port = server.split(':')
 
-    raise ArgumentError.new("Invalid server address #{server}") unless ip || port
+    raise ArgumentError.new("Invalid server address: #{server}") unless ip && port
 
     @values[:ip] = ip
     @values[:port] = port

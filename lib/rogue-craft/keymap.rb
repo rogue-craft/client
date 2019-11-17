@@ -22,10 +22,6 @@ class Keymap
   end
 
   def is?(val, key)
-    @keys[key]&.include?(val)
-  end
-
-  def camera_keys
-    @keys.values_at(:up, :left, :down, :right)
+    @keys.fetch(key, []).include?(val)
   end
 end

@@ -1,6 +1,8 @@
 class Client::ConnectionWrapper
 
   def initialize(underlying = nil)
+    @underlying = nil
+
     if underlying
       self.underlying = underlying
     end
@@ -18,13 +20,9 @@ class Client::ConnectionWrapper
 
   def underlying=(underlying)
     unless underlying.is_a?(Client::Connection)
-      raise ArgumentError.new("underlying must be a #{Client::Connection.name}")
+      raise ArgumentError.new("Underlying connection must be a #{Client::Connection.name}")
     end
 
     @underlying = underlying
-  end
-
-  def initialized?
-    nil != @underlying
   end
 end

@@ -1,13 +1,13 @@
 require_relative '../test_case'
 
-class TestHandler < Handler::TokenAwareHandler
+class TestHandler < Handler::AuthenticatedHandler
 
   def test
     send_msg
   end
 end
 
-class TokenAwareHandlerTest < TestCase
+class AuthenticatedHandlerTest < TestCase
 
   def test_handler
     session = mock_session

@@ -54,6 +54,23 @@ class SessionTest < MiniTest::Test
     assert_nil(session.token)
   end
 
+  def test_logged_in?
+    session = new_session
+    assert(false == session.logged_in?)
+
+    session.token = 'token_1'
+    assert(session.logged_in?)
+
+    session.close
+    assert(false == session.logged_in?)
+
+    session.token = 'token_1'
+    assert(session.logged_in?)
+
+    session.clear
+    assert(false == session.logged_in?)
+  end
+
   private
   def new_session
     Client::Session.new(config: mock_config)

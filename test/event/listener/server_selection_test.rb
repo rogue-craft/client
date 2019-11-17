@@ -69,7 +69,7 @@ class ServerSelectionTest < TestCase
       session: session,
       menu_system: menu_system
     )
-    assert(listener.is_a?(Handler::TokenAwareHandler))
+    assert(listener.is_a?(Handler::AuthenticatedHandler))
 
     listener.on_server_selection(event)
   end
