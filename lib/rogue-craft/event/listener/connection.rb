@@ -7,7 +7,7 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
     @session.start
 
     @default_connection.close_connection
-    @default_connection.underlying = EM::connect(@config[:ip], @config[:port], Client::Connection)
+    @default_connection.underlying = EM.connect(@config[:ip], @config[:port], Client::Connection)
 
     unless @session.logged_in?
       @menu_system.open_main
@@ -30,7 +30,7 @@ class Event::Listener::Connection < Handler::TokenAwareHandler
   end
 
   public
-  def on_disconnection(event)
+  def on_disconnection(_)
     @default_connection.close_connection
     @session.close
     @config.unselect_server

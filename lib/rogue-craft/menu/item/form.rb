@@ -30,7 +30,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @underlying_form = nil
   end
 
-  def display(active_index, index, window)
+  def display(active_index, _index, window)
 
     if @underlying_form
       display_existing
@@ -120,10 +120,10 @@ class Menu::Item::Form < Menu::Item::BaseItem
   end
 
   def height
-    h = @models.reduce(1) { |h, f| h + f.height + 2}
+    full_h = @models.reduce(1) { |h, f| h + f.height + 2}
 
     # space for errors
-    h * 2
+    full_h * 2
   end
 
   def data

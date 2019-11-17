@@ -15,7 +15,7 @@ class Menu::Servers < Menu::BaseMenu
     @config[:servers].each do |name, address|
       next if :local == name && env != :local
 
-      item(name.to_s, -> () {
+      item(name.to_s, lambda {
         @event.publish(:server_selection, {server: address})
       })
     end

@@ -7,7 +7,6 @@ class RogueCraft
     EM.run do
       container = ContainerLoader.load
 
-      menu_system = container.resolve(:menu_system)
       game_loop = container.resolve(:game_loop)
       publisher = container.resolve(:event)
 

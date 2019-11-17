@@ -1,24 +1,12 @@
 class Loop
 
-  include Dependency[:game_state, :interface, :keymap, :menu_system, :renderer, :event]
+  include Dependency[:game_state, :interface, :keymap, :menu_system, :event]
 
   def update
     unless @game_state.closed?
       begin
-
-        until -1 == (input = @interface.read_input)
-          if @game_state.in_menu?
-            @menu_system.navigate(input)
-          else
-            dispatch_input(input)
-          end
-        end
-
-        if game_state.in_menu?
-          @menu_system.render
-        else
-          @renderer.render
-        end
+        handle_input
+        render
       rescue Exception => err
         close(err)
       end
@@ -28,9 +16,21 @@ class Loop
   end
 
   private
-  def dispatch_input(input)
-    if @keymap.camera_keys.include?(input)
-      # @event.publish(:camera_movement, key: input)
+  def handle_input
+    until -1 == (input = @interface.read_input)
+      unless @game_state.in_menu?
+        #
+      else
+        @menu_system.navigate(input)
+      end
+    end
+  end
+
+  def render
+    unless game_state.in_menu?
+      # @renderer.render
+    else
+      @menu_system.render
     end
   end
 

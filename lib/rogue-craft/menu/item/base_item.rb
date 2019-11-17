@@ -1,6 +1,6 @@
 class Menu::Item::BaseItem
 
-  def display(active_index, index, window)
+  def display(_active_index, _index, _window)
     raise NotImplementedError.new(__method__)
   end
 

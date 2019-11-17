@@ -14,3 +14,4 @@ sandbox/
 .cache/*
 !.cache/.gitkeep
 *.gem
+coverage/

@@ -60,7 +60,6 @@ class ContainerLoader
     c[:event] = -> { Event::Publisher.new }
 
     c[:camera] = -> { OpenStruct.new(y: 0, x: 0, width: Ncurses.COLS, height: Ncurses.LINES) }
-    c[:renderer] = -> { Display::Renderer.new }
     c[:game_loop] = -> { Loop.new }
 
     c[:session] = -> { Client::Session.new }

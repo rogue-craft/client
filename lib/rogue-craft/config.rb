@@ -31,7 +31,7 @@ class Config
   end
 
   def server_selected?
-    (!!@values[:ip] && !!@values[:port])
+    (!@values[:ip].nil? && !@values[:port].nil?)
   end
 
   private
@@ -47,7 +47,7 @@ class Config
     end.parse!
 
     env = cli_opts.fetch(:env, :default).to_sym
-    cfg = YAML::load(File.open(path))
+    cfg = YAML.load(File.open(path))
 
     @values = cfg[:default]
       .merge(cfg.fetch(env, {}))
