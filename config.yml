@@ -1,7 +1,7 @@
 ---
 :default:
     :servers:
-        :local: 213131:8081
+        :local: localhost:8081
         :test: ____:0000
     :response_timeout: 1
     :log_level: info

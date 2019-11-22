@@ -1,0 +1,2 @@
+ignore:
+    - "lib/rogue-craft/container_loader.rb"

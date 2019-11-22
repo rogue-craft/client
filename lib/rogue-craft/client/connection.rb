@@ -7,10 +7,11 @@ class Client::Connection < EventMachine::Connection
   end
 
   def ssl_handshake_completed
-    # p "HelloClient"
+    # p "hello"
   end
 
   def unbind(reason = nil)
+    raise reason
     # @TODO publish event?
   end
 

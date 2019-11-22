@@ -3,7 +3,7 @@ class Event::Publisher
 
   EVENTS = [
     :registration, :login, :activation, :logout,
-    :server_selection, :disconnection
+    :server_selection, :check_token, :disconnection
   ].freeze
 
   def subscribe_listeners
