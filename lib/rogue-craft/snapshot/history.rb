@@ -19,7 +19,7 @@ class Snapshot::History
 
     return last unless prev
 
-    if ((Time.now.to_f - prev[:timestamp]) * 1000).floor < @limit
+    if ((Time.now.to_f * 1000) - prev[:timestamp]).floor < @limit
       return prev
     end
 

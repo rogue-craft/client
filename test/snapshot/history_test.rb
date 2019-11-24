@@ -14,9 +14,11 @@ class SnapshotHistoryTest < TestCase
   def test_happy_path
     histoy = Snapshot::History.new(10)
 
-    Time.expects(:now).returns(100.009)
+    time = mock
+    time.expects(:to_f).returns(100.009)
+    Time.expects(:now).returns(time)
 
-    prev = {timestamp: 100}
+    prev = {timestamp: 100_000.0}
     last = {}
     histoy.push(prev)
     histoy.push(last)
