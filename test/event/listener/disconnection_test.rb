@@ -15,7 +15,16 @@ class DisconnectTest < TestCase
     config = mock
     config.expects(:unselect_server)
 
-    listener = Event::Listener::Connection.new(default_connection: connection, menu_system: menu, session: session, config: config)
+    snapshot_history = mock
+    snapshot_history.expects(:clear)
+
+    listener = Event::Listener::Connection.new(
+      default_connection: connection,
+      menu_system: menu,
+      session: session,
+      config: config,
+      snapshot_history: snapshot_history
+    )
     listener.on_disconnection({})
   end
 end

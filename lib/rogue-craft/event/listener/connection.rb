@@ -1,6 +1,6 @@
 class Event::Listener::Connection < Handler::AuthenticatedHandler
 
-  include Dependency[:menu_system, :config, :event, :default_connection]
+  include Dependency[:menu_system, :config, :event, :default_connection, :snapshot_history]
 
   def on_server_selection(event)
     @config.select_server(event[:server])
@@ -34,6 +34,7 @@ class Event::Listener::Connection < Handler::AuthenticatedHandler
     @default_connection.close_connection
     @session.close
     @config.unselect_server
+    @snapshot_history.clear
     @menu_system.open_servers
   end
 end

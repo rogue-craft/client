@@ -3,7 +3,7 @@
     :servers:
         :local: localhost:8081
         :test: ____:0000
-    :response_timeout: 1
+    :response_timeout: 50
     :log_level: info
     :log_file: ~/.rogue-craft/rogue-craft.log
     :cache_dir:

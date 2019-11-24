@@ -32,6 +32,7 @@ require_relative './display/display'
 require_relative './handler/handler'
 require_relative './event/event'
 require_relative './client/client'
+require_relative './snapshot/snapshot'
 
 require_relative './keymap'
 require_relative './game_state'
