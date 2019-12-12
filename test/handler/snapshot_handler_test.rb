@@ -9,7 +9,7 @@ class SnapshotHandlerTest < TestCase
     history = mock
     history.expects(:push).with(snapshot)
 
-    handler = Handler::Snapshot.new(snapshot_history: history)
-    handler.receive(msg)
+    handler = Handler::World.new(snapshot_history: history)
+    handler.snapshot_stream(msg)
   end
 end
