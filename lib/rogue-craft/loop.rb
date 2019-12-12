@@ -27,9 +27,11 @@ class Loop
   end
 
   def render
-    unless game_state.in_menu?
+    if @game_state.in_game?
       @renderer.render
-    else
+    end
+
+    if @game_state.in_menu?
       @menu_system.render
     end
   end

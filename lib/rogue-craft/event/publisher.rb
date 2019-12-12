@@ -3,7 +3,7 @@ class Event::Publisher
 
   EVENTS = [
     :registration, :login, :activation, :logout,
-    :server_selection, :check_token, :disconnection
+    :server_selection, :check_token, :disconnection, :join_game
   ].freeze
 
   def subscribe_listeners
@@ -11,6 +11,7 @@ class Event::Publisher
 
     subscribe(Event::Listener::Auth.new)
     subscribe(Event::Listener::Connection.new)
+    subscribe(Event::Listener::Join.new)
 
     RogueCraftCommon.register_common_listeners(self, Dependency.container)
   end

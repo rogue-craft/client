@@ -59,9 +59,12 @@ class Menu::BaseMenu
 
   def close
     @items.each(&:close)
-    @window.clear
-    @window.refresh
-    @window.delwin
+
+    unless @window.destroyed?
+      @window.clear
+      @window.refresh
+      @window.delwin
+    end
   end
 
   def clear

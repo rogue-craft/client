@@ -11,7 +11,7 @@ class Client::Connection < EventMachine::Connection
   end
 
   def unbind(reason = nil)
-    raise reason
+    raise reason if reason.is_a?(Exception)
     # @TODO publish event?
   end
 

@@ -38,18 +38,21 @@ class Menu::MenuSystem
 
   def close
     if @game_state.in_menu?
-      @instances.each(&:close)
+      @instances.values.each(&:close)
+    end
+  end
+
+  def clear
+    if @current_menu
+      @interface.clear
+      @current_menu.clear
     end
   end
 
   private
   def open_menu(transition)
     type = transition.to.to_sym
-
-    if @current_menu
-      @interface.clear
-      @current_menu.clear
-    end
+    clear
 
     unless @instances[type]
       @instances[type] = @menu_types[type].new(
