@@ -1,12 +1,12 @@
 class Menu::BaseMenu
 
-  def initialize(system, game_state, keymap, interface, event, color_bag)
+  def initialize(system, game_state, keymap, interface, event, color_scheme)
     @system = system
     @game_state = game_state
     @keymap = keymap
     @interface = interface
     @event = event
-    @color_bag = color_bag
+    @color_scheme = color_scheme
     @items = []
 
     create_items
@@ -78,7 +78,7 @@ class Menu::BaseMenu
   end
 
   def form(fields, width, submit)
-    @items << Menu::Item::Form.new(fields, @keymap, @color_bag, width, submit)
+    @items << Menu::Item::Form.new(fields, @keymap, @color_scheme, width, submit)
   end
 
   def input(*args)

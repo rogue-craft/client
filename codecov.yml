@@ -1,2 +1,3 @@
 ignore:
     - "lib/rogue-craft/container_loader.rb"
+    - "lib/rogue-craft/route_map.rb"

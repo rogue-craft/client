@@ -2,13 +2,13 @@ class Menu::Item::Form < Menu::Item::BaseItem
 
   attr_reader :width
 
-  def initialize(models, keymap, color_bag, width, submit)
+  def initialize(models, keymap, color_scheme, width, submit)
     @models = models
     @field_model_map = {}
     @underlying_form = nil
     @keymap = keymap
     @width = width
-    @color_bag = color_bag
+    @color_scheme = color_scheme
     @submit = submit
     @errors = {}
     @render_existing = false
@@ -50,7 +50,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
       field.field_opts_off(Ncurses::Form::O_STATIC)
 
       if model.password?
-        field.set_field_fore(@color_bag.get(fg: Ncurses::COLOR_BLACK, bg: Ncurses::COLOR_BLACK))
+        field.set_field_fore(@color_scheme[:menu_password_field][:color_pair])
       end
 
       @field_model_map[field] = model

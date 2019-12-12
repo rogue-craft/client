@@ -1,6 +1,6 @@
 class Loop
 
-  include Dependency[:game_state, :interface, :keymap, :menu_system, :event]
+  include Dependency[:game_state, :interface, :menu_system, :event, :renderer]
 
   def update
     unless @game_state.closed?
@@ -28,7 +28,7 @@ class Loop
 
   def render
     unless game_state.in_menu?
-      # @renderer.render
+      @renderer.render
     else
       @menu_system.render
     end

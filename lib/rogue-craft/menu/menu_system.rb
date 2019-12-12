@@ -1,6 +1,6 @@
 class Menu::MenuSystem
 
-  include Dependency[:game_state, :interface, :keymap, :event, :color_bag]
+  include Dependency[:game_state, :interface, :keymap, :event, :color_scheme]
 
   def initialize(args)
     super
@@ -54,7 +54,7 @@ class Menu::MenuSystem
     unless @instances[type]
       @instances[type] = @menu_types[type].new(
           self, @game_state, @keymap,
-          @interface, @event, @color_bag
+          @interface, @event, @color_scheme
       )
     end
 

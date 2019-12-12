@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   # spec.homepage      = "RogueCraft"
   spec.license       = "MIT"
 
-  spec.files = Dir['README.md', 'VERSION', 'Gemfile', 'Rakefile', '{bin,lib,config,vendor}/**/*']
+  spec.files = Dir['README.md', 'VERSION', 'Gemfile', 'Rakefile', '{bin,lib,config,resources}/**/*']
 
   spec.bindir        = "bin"
   spec.executables   = ["rogue-craft"]

@@ -39,14 +39,18 @@ require_relative './game_state'
 require_relative './loop'
 require_relative './config'
 
+require_relative './schema/schema'
 require_relative './route_map'
 
 class ContainerLoader
 
+  CONFIG_PATH = File.expand_path(__dir__ + '../../../config/config.yml').freeze
+  COLOR_SCHEME_PATH = File.expand_path(__dir__ + '../../../config/color_scheme.yml').freeze
+
   def self.load
     c = Dependency.container
 
-    config = Config.new(File.expand_path('config.yml'))
+    config = Config.new(CONFIG_PATH)
 
     c[:config] = -> { config }
 
@@ -54,7 +58,7 @@ class ContainerLoader
     c[:game_state] = -> { GameState.new }
     c[:keymap] = -> { Keymap.new }
     c[:interface] = -> { Display::Interface.new }
-    c[:color_bag] = -> { Display::ColorBag.new }
+    c[:color_scheme] = -> { Display::ColorScheme.new(COLOR_SCHEME_PATH) }
 
     c[:menu_system] = -> { Menu::MenuSystem.new }
 
@@ -64,6 +68,9 @@ class ContainerLoader
     c[:game_loop] = -> { Loop.new }
 
     c[:session] = -> { Client::Session.new }
+
+    c[:snapshot_history] = -> { Snapshot::History.new(100) }
+    c[:renderer] = -> { Display::Renderer.new([Display::Renderer::World.new]) }
 
     c
   end
@@ -84,6 +91,7 @@ class ContainerLoader
     c[:serializer] = -> { RPC::Serializer.new(c[:logger]) }
     c[:router] = -> { RPC::Router.new(RouteMap.new, c[:logger]) }
     c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger] ) }
+    c[:snapshot_handler] = -> { Handler::Snapshot.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection]) }
   end
 end

@@ -1,7 +1,7 @@
 class Snapshot::History
 
-  def initialize(limit)
-    @limit = limit
+  def initialize(age_limit)
+    @age_limit = age_limit
     @queue = []
   end
 
@@ -19,7 +19,7 @@ class Snapshot::History
 
     return last unless prev
 
-    if ((Time.now.to_f * 1000) - prev[:timestamp]).floor < @limit
+    if ((Time.now.to_f * 1000) - prev[:timestamp]).floor < @age_limit
       return prev
     end
 
