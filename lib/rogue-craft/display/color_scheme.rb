@@ -11,17 +11,15 @@ class Display::ColorScheme
     color_id = 0
 
     YAML.add_domain_type("", "rgb") do |type, rgb|
-      current = color_id
+      color_id += 1
 
       unless valid_rgb?(rgb)
         raise ArgumentError.new("Invalid RGB. It must be an array with three integers between 0 and 255. #{rgb} given")
       end
 
       rgb = rgb.map {|c| (c * 1000) / 255 }
-
-      Ncurses.init_color(current, *rgb)
-      color_id += 1
-      current
+      Ncurses.init_color(color_id, *rgb)
+      color_id
     end
   end
 
@@ -37,17 +35,17 @@ class Display::ColorScheme
     pair_id = 0
 
     @color_scheme[:styles].each do |_, style|
+      pair_id += 1
+
       Ncurses.init_pair(
         pair_id,
         get_color_id(style[:fg]),
         get_color_id(style[:bg])
       )
 
-      style[:color_pair] = pair_id
+      style[:color_pair] = Ncurses.COLOR_PAIR(pair_id)
       style.delete(:fg)
       style.delete(:bg)
-
-      pair_id += 1
     end
   end
 
