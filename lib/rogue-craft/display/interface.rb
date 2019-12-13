@@ -15,6 +15,7 @@ class Display::Interface
   end
 
   def world_window
+    @world_window ||= center_window(Ncurses.getmaxy(Ncurses.stdscr), Ncurses.getmaxx(Ncurses.stdscr))
   end
 
   def center_window(height, width)

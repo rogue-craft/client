@@ -8,19 +8,13 @@ class ColorSchemeTest < MiniTest::Test
 
     Ncurses.expects(:init_pair).with(1, 1, 1)
     Ncurses.expects(:COLOR_PAIR).with(1).returns(10)
-    Ncurses.expects(:init_pair).with(2, 2, 0)
+    Ncurses.expects(:init_pair).with(2, 2, -1)
     Ncurses.expects(:COLOR_PAIR).with(2).returns(20)
 
     scheme = Display::ColorScheme.new(__dir__ + '/fixture/correct_color_scheme.yml')
 
     assert_equal(10, scheme[:menu][:color_pair])
     assert_equal(20, scheme[:menu_settings][:color_pair])
-
-    err = assert_raises(ArgumentError) do
-      scheme[:unknown]
-    end
-
-    assert_equal('No such style definition in the colorscheme: unknown', err.message)
   end
 
   def test_missing_color

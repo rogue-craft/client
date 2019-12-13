@@ -1,4 +1,6 @@
 class Display::ColorScheme
+  TRANSPARENT = -1.freeze
+
   def initialize(colorscheme_path)
     register_rgb_type
     @color_scheme = YAML.load_file(colorscheme_path)
@@ -50,7 +52,7 @@ class Display::ColorScheme
   end
 
   def get_color_id(color_name)
-    return 0 unless color_name
+    return TRANSPARENT unless color_name
 
     unless color = @color_scheme[:colors][color_name]
       raise ArgumentError.new("No such color defined: #{color_name}")
@@ -61,10 +63,6 @@ class Display::ColorScheme
 
   public
   def [](name)
-    unless style = @color_scheme[:styles][name]
-      raise ArgumentError.new("No such style definition in the colorscheme: #{name}")
-    end
-
-    style
+    @color_scheme[:styles][name]
   end
 end

@@ -7,7 +7,7 @@ class SnapshotHandlerTest < TestCase
     msg = RPC::Message.from(params: {snapshot: snapshot})
 
     history = mock
-    history.expects(:push).with(snapshot)
+    history.expects(:push).with(msg.params)
 
     handler = Handler::World.new(snapshot_history: history)
     handler.snapshot_stream(msg)

@@ -3,6 +3,7 @@ module Schema::World
     define do
       required(:x).filled(:integer)
       required(:y).filled(:integer)
+      required(:type).filled(:symbol)
     end
   end
 

@@ -1,10 +1,10 @@
 class Display::Renderer
-  def initialize(strategy)
-    @strategy = strategy
-  end
+  include Dependency[:snapshot_history, :renderer_strategy]
 
   def render
-    @strategy.each(&:render)
+    return unless snapshot = @snapshot_history.relevant
+
+    @renderer_strategy.each { |r| r.render(snapshot) }
   end
 end
 

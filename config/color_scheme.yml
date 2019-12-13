@@ -1,8 +1,12 @@
 ---
 :colors:
     :black: !rgb [0, 0, 0]
+    :red: !rgb [255, 0, 0]
 
 :styles:
     :menu_password_field:
         :fg: :black
         :bg: :black
+    :player:
+        :fg: :red
+        :char: '@'

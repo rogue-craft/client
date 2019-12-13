@@ -4,9 +4,9 @@ class RogueCraft
   TIMEOUT = 0.05.freeze
 
   def run
-    EM.run do
-      container = ContainerLoader.load
+    container = ContainerLoader.load
 
+    EM.run do
       game_loop = container.resolve(:game_loop)
       publisher = container.resolve(:event)
 
@@ -18,5 +18,6 @@ class RogueCraft
       EM.add_periodic_timer(TIMEOUT) { game_loop.update }
     end
   rescue Interrupt
+    container[:game_loop].close
   end
 end
