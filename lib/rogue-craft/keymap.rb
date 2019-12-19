@@ -24,4 +24,8 @@ class Keymap
   def is?(val, key)
     @keys.fetch(key, []).include?(val)
   end
+
+  def any?(val, keys)
+    keys.any? {|key| is?(val, key)}
+  end
 end

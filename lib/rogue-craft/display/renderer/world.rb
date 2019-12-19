@@ -1,10 +1,11 @@
 class Display::Renderer::World
 
-  include Dependency[:snapshot_history, :interface, :color_scheme]
+  include Dependency[:interface, :color_scheme]
 
   def render(snapshot)
     player = snapshot[:player]
     win = @interface.world_window
+    win.clear
     # elapsed_time = (Time.now.to_f * 1000) - snapshot[:timestamp]
 
     center_y = win.getmaxy / 2

@@ -18,7 +18,7 @@ class Loop
   private
   def handle_input
     until -1 == (input = @interface.read_input)
-      unless @game_state.in_menu?
+      if @game_state.in_game?
         #
       else
         @menu_system.navigate(input)

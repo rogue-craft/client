@@ -6,10 +6,10 @@ class SnapshotHandlerTest < TestCase
     snapshot = [:snapshot]
     msg = RPC::Message.from(params: {snapshot: snapshot})
 
-    history = mock
-    history.expects(:push).with(msg.params)
+    storage = mock
+    storage.expects(:add).with(msg.params)
 
-    handler = Handler::Snapshot.new(snapshot_history: history)
+    handler = Handler::Snapshot.new(snapshot_storage: storage)
     handler.stream(msg)
   end
 end
