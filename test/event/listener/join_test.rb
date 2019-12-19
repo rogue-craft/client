@@ -7,7 +7,7 @@ class JoinTest < TestCase
 
     dispatcher = mock
     dispatcher.expects(:dispatch).yields(response).with do |msg|
-      assert_equal('world/start_stream', msg.target)
+      assert_equal('snapshot/start', msg.target)
     end
 
     game_state = mock

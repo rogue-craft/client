@@ -1,4 +1,4 @@
-module Schema::World
+module Schema::Snapshot
   class Entity < Dry::Schema::Params
     define do
       required(:x).filled(:integer)
@@ -12,7 +12,7 @@ module Schema::World
     end
   end
 
-  class Snapshot < Dry::Validation::Contract
+  class Stream < Dry::Validation::Contract
     params do
       required(:player).filled(Player.new)
       required(:entities).each(Entity.new)

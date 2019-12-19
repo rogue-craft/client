@@ -70,7 +70,8 @@ class ContainerLoader
     c[:session] = -> { Client::Session.new }
 
     c[:snapshot_history] = -> { Snapshot::History.new(100) }
-    c[:renderer] = -> { Display::Renderer.new([Display::Renderer::World.new]) }
+    c[:renderer_strategy] = -> { [Display::Renderer::World.new] }
+    c[:renderer] = -> { Display::Renderer.new }
 
     c
   end
@@ -91,7 +92,7 @@ class ContainerLoader
     c[:serializer] = -> { RPC::Serializer.new(c[:logger]) }
     c[:router] = -> { RPC::Router.new(RouteMap.new.load, c[:logger]) }
     c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger] ) }
-    c[:world_handler] = -> { Handler::World.new }
+    c[:snapshot_handler] = -> { Handler::Snapshot.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection]) }
   end
 end

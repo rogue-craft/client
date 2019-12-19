@@ -1,13 +1,13 @@
 class RouteMap
 
-  include Dependency[:world_handler]
+  include Dependency[:snapshot_handler]
 
   def load
     {
-      world: {
-        handler: @world_handler,
+      snapshot: {
+        handler: @snapshot_handler,
         schema: {
-          snapshot_stream: Schema::World::Snapshot.new
+          stream: Schema::Snapshot::Stream.new
         }
       }
     }
