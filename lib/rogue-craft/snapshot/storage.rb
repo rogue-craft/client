@@ -1,14 +1,12 @@
 class Snapshot::Storage
 
+  attr_reader :current
+
   def initialize
     @current = nil
   end
 
   def add(snapshot)
-    @current = snapshot
-  end
-
-  def current
-    @current
+    @current = snapshot.freeze
   end
 end

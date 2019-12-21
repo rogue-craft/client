@@ -9,9 +9,11 @@ class SnapshotStorageTest < TestCase
     snapshot = mock
     storage.add(snapshot)
     assert_equal(snapshot, storage.current)
+    assert(storage.current.frozen?)
 
     other_snapshot = mock
     storage.add(other_snapshot)
     assert_equal(other_snapshot, storage.current)
+    assert(storage.current.frozen?)
   end
 end

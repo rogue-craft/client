@@ -4,7 +4,7 @@ require_relative '../../test'
 class LoginTest < MiniTest::Test
 
   def test_happy_path
-    form = OpenStruct.new(data: 'hello')
+    form = OpenStruct.new(data: {test: 'hello'})
     response = RPC::Message.from(code: RPC::Code::OK, params: {token: 'user-token'})
 
     menu = mock
@@ -17,7 +17,7 @@ class LoginTest < MiniTest::Test
   end
 
   def test_acces_denied
-    form = OpenStruct.new(data: 'hello')
+    form = OpenStruct.new(data: {test: 'hello'})
     response = RPC::Message.from(code: RPC::Code::ACCESS_DENIED, params: {violations: {'nickname/password': ['Wrong credentials']}})
 
     run_login_test(form, response)

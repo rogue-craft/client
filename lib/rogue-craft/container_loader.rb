@@ -70,6 +70,7 @@ class ContainerLoader
     c[:session] = -> { Client::Session.new }
 
     c[:snapshot_storage] = -> { Snapshot::Storage.new }
+    c[:interpolator] = -> { Snapshot::Interpolator.new }
     c[:renderer_strategy] = -> { [Display::Renderer::World.new] }
     c[:renderer] = -> { Display::Renderer.new }
 

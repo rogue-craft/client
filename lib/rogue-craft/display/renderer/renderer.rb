@@ -1,8 +1,8 @@
 class Display::Renderer
-  include Dependency[:snapshot_storage, :renderer_strategy]
+  include Dependency[:interpolator, :renderer_strategy]
 
   def render
-    return unless snapshot = @snapshot_storage.current
+    return unless snapshot = @interpolator.current
 
     @renderer_strategy.each { |r| r.render(snapshot) }
   end

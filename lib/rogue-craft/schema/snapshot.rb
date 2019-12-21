@@ -4,6 +4,11 @@ module Schema::Snapshot
       required(:x).filled(:integer)
       required(:y).filled(:integer)
       required(:type).filled(:symbol)
+
+      optional(:movement).hash do
+        required(:speed).filled(:float)
+        required(:direction).filled(:integer)
+      end
     end
   end
 

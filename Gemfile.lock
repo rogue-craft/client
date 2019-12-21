@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rogue-craft/common
-  revision: c9cb0fc1736e422b39543b40235a21d965da219e
+  revision: fac63b309134991d18cfecf0227ec843f4debf94
   specs:
     rogue-craft-common (0.1.0)
       dry-validation (~> 1.3.1)
@@ -29,7 +29,7 @@ GEM
     docile (1.3.2)
     dry-auto_inject (0.6.1)
       dry-container (>= 0.3.4)
-    dry-configurable (0.8.3)
+    dry-configurable (0.9.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
     dry-container (0.7.2)
@@ -37,7 +37,7 @@ GEM
       dry-configurable (~> 0.1, >= 0.1.3)
     dry-core (0.4.9)
       concurrent-ruby (~> 1.0)
-    dry-equalizer (0.2.2)
+    dry-equalizer (0.3.0)
     dry-events (0.1.1)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4)
@@ -48,7 +48,7 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-schema (1.4.1)
+    dry-schema (1.4.2)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.8, >= 0.8.3)
       dry-core (~> 0.4)
@@ -56,11 +56,11 @@ GEM
       dry-initializer (~> 3.0)
       dry-logic (~> 1.0)
       dry-types (~> 1.2)
-    dry-types (1.2.1)
+    dry-types (1.2.2)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
       dry-core (~> 0.4, >= 0.4.4)
-      dry-equalizer (~> 0.2, >= 0.2.2)
+      dry-equalizer (~> 0.3)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
     dry-validation (1.3.1)

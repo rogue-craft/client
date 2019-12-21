@@ -19,12 +19,13 @@ class WorldRendererTest < TestCase
     }
 
     window = mock
+    window.expects(:clear)
     window.expects(:getmaxx).returns(20)
     window.expects(:getmaxy).returns(10)
     window.expects(:attron).with(11)
     window.expects(:mvprintw).with(5, 10, '@')
     window.expects(:attroff).with(11)
-    window.expects(:mvprintw).with(3, 14, '*')
+    window.expects(:mvprintw).with(7, 14, '*')
     window.expects(:refresh)
 
     interface = mock

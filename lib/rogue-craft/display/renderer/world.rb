@@ -6,7 +6,6 @@ class Display::Renderer::World
     player = snapshot[:player]
     win = @interface.world_window
     win.clear
-    # elapsed_time = (Time.now.to_f * 1000) - snapshot[:timestamp]
 
     center_y = win.getmaxy / 2
     center_x = win.getmaxx / 2
@@ -22,8 +21,8 @@ class Display::Renderer::World
 
   private
   def display_entity(entity, win, center_x, center_y, player)
-    y = center_y - (player[:y] - entity[:y])
     x = center_x - (player[:x] - entity[:x])
+    y = center_y + (player[:y] - entity[:y])
 
     if style = @color_scheme[entity[:type]]
       char = style[:char] || '*'
