@@ -12,7 +12,7 @@ class Display::ColorScheme
   def register_rgb_type
     color_id = 0
 
-    YAML.add_domain_type("", "rgb") do |type, rgb|
+    YAML.add_domain_type("", "rgb") do |_, rgb|
       color_id += 1
 
       unless valid_rgb?(rgb)

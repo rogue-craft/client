@@ -30,7 +30,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @underlying_form = nil
   end
 
-  def display(active_index, _index, window)
+  def display(_active_index, _index, window)
 
     if @underlying_form
       display_existing
