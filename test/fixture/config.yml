@@ -1,4 +1,5 @@
-:default:
-    :cache_dir:
-        :nix: ~
-        :windows: ~
+---
+default:
+    cache_dir:
+        nix: ~
+        windows: ~

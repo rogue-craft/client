@@ -47,7 +47,7 @@ class Config
     end.parse!
 
     env = cli_opts.fetch(:env, :default).to_sym
-    cfg = YAML.load(File.open(path))
+    cfg = YAML.load(File.open(path), symbolize_names: true)
 
     @values = cfg[:default]
       .merge(cfg.fetch(env, {}))

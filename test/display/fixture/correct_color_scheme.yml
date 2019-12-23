@@ -1,11 +1,11 @@
 ---
-:colors:
-    :black: !rgb [0, 0, 0]
-    :red: !rgb [255, 0, 0]
+colors:
+    black: !rgb [0, 0, 0]
+    red: !rgb [255, 0, 0]
 
-:styles:
-    :menu:
-        :fg: :black
-        :bg: :black
-    :menu_settings:
-        :fg: :red
+styles:
+    menu:
+        fg: :black
+        bg: :black
+    menu_settings:
+        fg: :red

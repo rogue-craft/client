@@ -42,7 +42,7 @@ class Loop
     @menu_system.close
     @interface.close
 
-    EventMachine.stop
+    EventMachine.stop if EventMachine.reactor_running?
 
     if err && !err.is_a?(Interrupt)
       raise err
