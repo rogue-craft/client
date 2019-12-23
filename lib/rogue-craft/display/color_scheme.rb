@@ -3,7 +3,7 @@ class Display::ColorScheme
 
   def initialize(colorscheme_path)
     register_rgb_type
-    @color_scheme = YAML.safe_load(File.read(colorscheme_path), symbolize_names: true)
+    @color_scheme = YAML.load(File.read(colorscheme_path), symbolize_names: true)
     map_entities
     @color_scheme.delete(:colors)
   end
