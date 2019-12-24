@@ -33,6 +33,7 @@ require_relative './handler/handler'
 require_relative './event/event'
 require_relative './client/client'
 require_relative './snapshot/snapshot'
+require_relative './command/command'
 
 require_relative './keymap'
 require_relative './game_state'
@@ -74,6 +75,8 @@ class ContainerLoader
     c[:renderer_strategy] = -> { [Display::Renderer::World.new] }
     c[:renderer] = -> { Display::Renderer.new }
 
+    c[:commmand_factories] = -> { [] }
+    c[:command_queue] = -> { Command::Queue.new }
     c
   end
 

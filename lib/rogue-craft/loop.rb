@@ -5,7 +5,7 @@ class Loop
   def update
     unless @game_state.closed?
       begin
-        handle_input
+        process_input
         render
       rescue Exception => err
         close(err)
@@ -16,14 +16,15 @@ class Loop
   end
 
   private
-  def handle_input
+  def process_input
     until -1 == (input = @interface.read_input)
       if @game_state.in_game?
-        #
+        @event.publish(:input, {input: input})
       else
         @menu_system.navigate(input)
       end
     end
+    @event.publish(:end_of_input)
   end
 
   def render
