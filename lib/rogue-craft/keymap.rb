@@ -21,6 +21,10 @@ class Keymap
     }.freeze
   end
 
+  def key_of(input)
+    @keys.find {|_, values| values.include?(input) }&.first
+  end
+
   def is?(val, key)
     @keys.fetch(key, []).include?(val)
   end

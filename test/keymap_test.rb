@@ -2,6 +2,13 @@ require_relative 'test'
 
 class KeymapTest < MiniTest::Test
 
+  def test_key_by_input
+    map = Keymap.new
+
+    assert(:up, map.key_of('w'.ord))
+    assert_nil(map.key_of('test'))
+  end
+
   def test_match
     map = Keymap.new
 

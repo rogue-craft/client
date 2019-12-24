@@ -75,7 +75,7 @@ class ContainerLoader
     c[:renderer_strategy] = -> { [Display::Renderer::World.new] }
     c[:renderer] = -> { Display::Renderer.new }
 
-    c[:commmand_factories] = -> { [] }
+    c[:commmand_factories] = -> { [ Command::Factory::Movement.new ] }
     c[:command_queue] = -> { Command::Queue.new }
     c
   end

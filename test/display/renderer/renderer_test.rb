@@ -4,7 +4,7 @@ class RendererTest < TestCase
 
   def test_no_snapshot
     interpolator = mock
-    interpolator.expects(:current).returns(nil)
+    interpolator.expects(:interpolate).returns(nil)
 
     strategy_1 = mock
     strategy_1.expects(:render).never
@@ -20,7 +20,7 @@ class RendererTest < TestCase
     snapshot = mock
 
     interpolator = mock
-    interpolator.expects(:current).returns(snapshot)
+    interpolator.expects(:interpolate).returns(snapshot)
 
     strategy_1 = mock
     strategy_1.expects(:render).with(snapshot)

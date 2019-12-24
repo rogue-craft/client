@@ -2,6 +2,15 @@ require_relative '../test_case'
 
 class InterpolatorTest < TestCase
 
+  def test_no_snapshot
+    storage = mock
+    storage.expects(:current).returns(nil)
+
+    interpolatator = Snapshot::Interpolator.new(snapshot_storage: storage)
+
+    assert_nil(interpolatator.interpolate)
+  end
+
   def test_movement
     Interpolation
       .expects(:position)
