@@ -19,9 +19,11 @@ module Schema::Snapshot
 
   class Stream < Dry::Validation::Contract
     params do
-      required(:player).filled(Player.new)
-      required(:entities).each(Entity.new)
-      required(:timestamp).filled(:float)
+      required(:snapshot).hash do
+        required(:player).filled(Player.new)
+        required(:entities).each(Entity.new)
+        required(:timestamp).filled(:float)
+      end
     end
   end
 end
