@@ -20,6 +20,7 @@ class CommandQueueTest < TestCase
     dispatcher.expects(:dispatch).with do |msg, conn|
       assert([:command_w, :command_r], msg[:queue])
       assert('command/execute', msg.target)
+      assert_nil(conn)
     end
 
     queue = Command::Queue.new(
