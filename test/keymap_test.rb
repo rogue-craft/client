@@ -16,10 +16,10 @@ class KeymapTest < MiniTest::Test
     assert(false == map.is?('w'.ord, :unknown_type))
   end
 
-  def test_any?
+  def test_include?
     map = Keymap.new
 
-    assert(map.any?('w'.ord, [:down, :up]))
-    assert(false == map.any?('q'.ord, [:down, :up]))
+    assert(map.include?([:down, :up], 'w'.ord))
+    assert(false == map.include?([:down, :up], 'q'.ord))
   end
 end

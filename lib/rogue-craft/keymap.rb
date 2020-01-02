@@ -29,7 +29,7 @@ class Keymap
     @keys.fetch(key, []).include?(val)
   end
 
-  def any?(val, keys)
+  def include?(keys, val)
     keys.any? {|key| is?(val, key)}
   end
 end

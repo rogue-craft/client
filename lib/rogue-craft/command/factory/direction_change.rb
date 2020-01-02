@@ -1,4 +1,4 @@
-class Command::Factory::Movement
+class Command::Factory::DirectionChange
 
   include Dependency[:keymap]
 
@@ -10,12 +10,12 @@ class Command::Factory::Movement
   }.freeze
 
   def supports?(input)
-    @keymap.any?(input, KEY_TO_DIRECTION_MAP.keys)
+    @keymap.include?(KEY_TO_DIRECTION_MAP.keys, input)
   end
 
   def create(input)
     {
-      type: :movement,
+      type: :direction_change,
       direction: direction_of(input)
     }
   end
