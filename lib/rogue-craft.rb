@@ -5,15 +5,10 @@ class RogueCraft
 
   def run
     container = ContainerLoader.load
+    container.resolve(:event).subscribe_listeners
+    game_loop = container.resolve(:game_loop)
 
     EM.run do
-      game_loop = container.resolve(:game_loop)
-      publisher = container.resolve(:event)
-
-      ContainerLoader.register_rpc(container)
-
-      publisher.subscribe_listeners
-
       EM.error_handler {|e| game_loop.close(e) }
       EM.add_periodic_timer(TIMEOUT) { game_loop.update }
     end

@@ -77,9 +77,13 @@ class ContainerLoader
 
     c[:commmand_factories] = -> { [ Command::Factory::DirectionChange.new ] }
     c[:command_queue] = -> { Command::Queue.new }
+
+    register_rpc(c)
+
     c
   end
 
+  private
   def self.logger(cfg)
     FileUtils.mkdir_p(File.dirname(cfg[:log_file]))
 
