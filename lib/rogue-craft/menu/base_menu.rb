@@ -84,7 +84,7 @@ class Menu::BaseMenu
     @items << Menu::Item::Form.new(fields, @keymap, @color_scheme, width, submit)
   end
 
-  def input(*args)
-    Menu::Item::FormInput.new(*args)
+  def input(*args, **kwargs)
+    Menu::Item::FormInput.new(*args, **kwargs)
   end
 end

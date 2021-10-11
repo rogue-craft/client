@@ -2,7 +2,7 @@ class Client::Session
 
   include Dependency[:config]
 
-  def initialize(args)
+  def initialize(**args)
     super
 
     @values = {}

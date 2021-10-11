@@ -1,6 +1,8 @@
 class Client::Connection < EventMachine::Connection
 
-  include Dependency[:event]
+  def initialize(event)
+    @event = event
+  end
 
   def post_init
     start_tls
@@ -14,7 +16,7 @@ class Client::Connection < EventMachine::Connection
     if reason.is_a?(Exception)
       raise reason
     else
-      raise Exception.new(reason)
+      # raise Exception.new(reason)
     end
     # @TODO publish event?
   end

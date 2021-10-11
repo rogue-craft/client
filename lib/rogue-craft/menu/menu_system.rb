@@ -2,8 +2,7 @@ class Menu::MenuSystem
 
   include Dependency[:game_state, :interface, :keymap, :event, :color_scheme]
 
-  def initialize(args)
-    super
+  def initialize(**args)
     @menu_types = {
       servers: Menu::Servers,
       main: Menu::MainMenu,
@@ -14,18 +13,33 @@ class Menu::MenuSystem
     }
     @instances = {}
 
-    open_servers
+    super
+
+    open_menu(:servers)
   end
 
-  state_machine :state, initial: :closed do
-    transition all - :servers => :servers, on: :open_servers
-    transition all - :main => :main, on: :open_main
-    transition all - :registration => :registration, on: :open_registration
-    transition all - :activation => :activation, on: :open_activation
-    transition all - :login => :login, on: :open_login
-    transition all - :logged_in => :logged_in, on: :open_logged_in
+  def open_servers
+    open_menu(:servers)
+  end
 
-    after_transition on: all, do: :open_menu
+  def open_main
+    open_menu(:main)
+  end
+
+  def open_registration
+    open_menu(:registration)
+  end
+
+  def open_activation
+    open_menu(:activation)
+  end
+
+  def open_login
+    open_menu(:login)
+  end
+
+  def open_logged_in
+    open_menu(:logged_in)
   end
 
   def render
@@ -50,8 +64,7 @@ class Menu::MenuSystem
   end
 
   private
-  def open_menu(transition)
-    type = transition.to.to_sym
+  def open_menu(type)
     clear
 
     unless @instances[type]

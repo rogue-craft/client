@@ -2,7 +2,7 @@ class Command::Queue < Handler::AuthenticatedHandler
 
   include Dependency[:commmand_factories]
 
-  def initialize(args)
+  def initialize(**args)
     super
     @queue = []
   end

@@ -7,7 +7,7 @@ class Event::Listener::Connection < Handler::AuthenticatedHandler
     @session.start
 
     @default_connection.close_connection
-    @default_connection.underlying = EM.connect(@config[:ip], @config[:port], Client::Connection)
+    @default_connection.underlying = EM.connect(@config[:ip], @config[:port], Client::Connection, @event)
 
     unless @session.logged_in?
       @menu_system.open_main
