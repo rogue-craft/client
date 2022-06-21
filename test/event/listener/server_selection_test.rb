@@ -15,7 +15,10 @@ class ServerSelectionTest < TestCase
 
     dispatcher = mock_dispatcher(RPC::Code::OK)
 
-    run_test(mock_session(logged_in: true), menu, dispatcher)
+    clock = mock
+    clock.expects(:base)
+
+    run_test(mock_session(logged_in: true), menu, dispatcher, clock)
   end
 
   def test_has_invalid_token
@@ -32,8 +35,8 @@ class ServerSelectionTest < TestCase
 
   private
 
-  def mock_dispatcher(code)
-    response = RPC::Message.from(code: code)
+  def mock_dispatcher(code, params = {})
+    response = RPC::Message.from(code: code, param: params)
 
     dispatcher = mock
     dispatcher.expects(:dispatch).yields(response).with do |msg|
@@ -43,7 +46,7 @@ class ServerSelectionTest < TestCase
     dispatcher
   end
 
-  def run_test(session, menu_system, dispatcher = nil)
+  def run_test(session, menu_system, dispatcher = nil, clock = nil)
     event = {server: 'server'}
 
     session_seq = sequence('session')
@@ -55,7 +58,7 @@ class ServerSelectionTest < TestCase
 
     session.expects(:start).in_sequence(session_seq)
 
-    EM.expects(:connect).with('ip', 'port', Client::Connection).returns(:connection)
+    EM.expects(:connect).with('ip', 'port', Client::Connection, nil).returns(:connection)
 
     connection = mock
     connection.expects(:close_connection)
@@ -67,7 +70,8 @@ class ServerSelectionTest < TestCase
       default_connection: connection,
       message_dispatcher: dispatcher,
       session: session,
-      menu_system: menu_system
+      menu_system: menu_system,
+      clock: clock
     )
     assert(listener.is_a?(Handler::AuthenticatedHandler))
 

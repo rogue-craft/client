@@ -1,6 +1,6 @@
 class Event::Listener::Connection < Handler::AuthenticatedHandler
 
-  include Dependency[:menu_system, :config, :event, :default_connection]
+  include Dependency[:menu_system, :config, :event, :default_connection, :clock]
 
   def on_server_selection(event)
     @config.select_server(event[:server])
@@ -22,6 +22,7 @@ class Event::Listener::Connection < Handler::AuthenticatedHandler
     send_msg(target: 'meta/ping') do |response|
       if response.code?(RPC::Code::OK)
         @menu_system.open_logged_in
+        @clock.base = Time.at(response[:time])
       else
         @session.clear
         @menu_system.open_main

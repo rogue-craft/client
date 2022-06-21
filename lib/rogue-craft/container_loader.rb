@@ -53,6 +53,7 @@ class ContainerLoader
 
     config = Config.new(CONFIG_PATH)
 
+    c[:clock] = -> { Interpolation::Clock.new }
     c[:config] = -> { config }
 
     c[:logger] = -> { logger(config) }

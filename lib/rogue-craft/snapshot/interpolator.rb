@@ -5,7 +5,9 @@ class Snapshot::Interpolator
   def interpolate
     original = @snapshot_storage.current
 
-    return unless original
+    return original
+
+    # return unless original
 
     snapshot = duplicate(original)
     timestamp = snapshot[:timestamp]
@@ -22,11 +24,12 @@ class Snapshot::Interpolator
   def interpolate_movement(entity, timestamp)
     return entity unless movement = entity[:movement]
 
-    x, y = Interpolation.position(
+    _, _, x, y = Interpolation.position(
       entity[:x], entity[:y], movement[:speed], movement[:direction], timestamp
     )
-    entity[:x] = x
-    entity[:y] = y
+
+    entity[:x] = x unless x.nil?
+    entity[:y] = y unless y.nil?
 
     entity
   end

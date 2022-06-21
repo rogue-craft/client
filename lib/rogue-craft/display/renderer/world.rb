@@ -25,7 +25,7 @@ class Display::Renderer::World
     y = center_y + (player[:y] - entity[:y])
 
     if style = @color_scheme[entity[:type]]
-      char = style[:char] || '*'
+      char = "#{player[:x].to_s} - #{player[:y].to_s}"|| '*'
       color = style[:color_pair]
     else
       char = '*'
