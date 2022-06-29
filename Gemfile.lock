@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rogue-craft/common
-  revision: a84c5431aa85998e840fc4b5e088b577c05f7c1a
+  revision: 61a48a26a60cf1aa221d64d9a16e8afc302937dd
   specs:
     rogue-craft-common (0.1.0)
       dry-validation (~> 1.7)
@@ -43,7 +43,7 @@ GEM
     dry-logic (1.2.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.9.2)
+    dry-schema (1.9.3)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.13, >= 0.13.0)
       dry-core (~> 0.5, >= 0.5)

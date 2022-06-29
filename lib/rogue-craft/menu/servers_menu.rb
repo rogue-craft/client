@@ -9,11 +9,12 @@ class Menu::Servers < Menu::BaseMenu
   end
 
   private
+
   def create_items
     env = @config[:env]
 
     @config[:servers].each do |name, address|
-      next if :local == name && env != :local
+      next if name == :development && env != :development
 
       item(name.to_s, lambda {
         @event.publish(:server_selection, {server: address})

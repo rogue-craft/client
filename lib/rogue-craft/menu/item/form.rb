@@ -30,6 +30,8 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @underlying_form = nil
   end
 
+  # @param window [Ncurses::WINDOW]
+  #
   def display(_active_index, _index, window)
 
     if @underlying_form
@@ -39,11 +41,11 @@ class Menu::Item::Form < Menu::Item::BaseItem
 
     underlying_fields = @models.flat_map.with_index do |model, i|
 
-      label = Ncurses::Form.new_field(1, model.label.length, i * 3, 0, 0, 0)
+      label = Ncurses::Form.new_field(1, model.label.length, i * 3 + Ncurses.getbegy(window), Ncurses.getbegx(window), 0, 10)
       label.set_field_buffer(0, model.label)
       label.field_opts_off(Ncurses::Form::O_ACTIVE)
 
-      field = Ncurses::Form.new_field(model.height, @width, 1 + (i * 3), 0, 0, 0)
+      field = Ncurses::Form.new_field(model.height, @width, 1 + (i * 3) + Ncurses.getbegy(window), Ncurses.getbegx(window), 0, 0)
 
       field.set_field_back(Ncurses::A_UNDERLINE)
       field.field_opts_off(Ncurses::Form::O_AUTOSKIP)

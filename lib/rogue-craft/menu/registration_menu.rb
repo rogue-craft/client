@@ -6,7 +6,7 @@ class Menu::Registration < Menu::BaseMenu
       input(:nickname, "Nickname"),
       input(:email, "Email"),
       input(:password, "Password", password: true),
-      input(:password_confirmation, "Password Confirmation", password: true),
+      input(:password_confirmation, "Password Confirmation", password: true)
     ]
 
     form(

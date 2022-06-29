@@ -102,6 +102,6 @@ class ContainerLoader
     c[:router] = -> { RPC::Router.new(RouteMap.new.load, c[:logger]) }
     c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger] ) }
     c[:snapshot_handler] = -> { Handler::Snapshot.new }
-    c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection]) }
+    c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection], c[:logger]) }
   end
 end

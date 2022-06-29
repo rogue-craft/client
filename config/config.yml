@@ -1,7 +1,7 @@
 ---
 default:
     servers:
-        local: localhost:8081
+        development: localhost:3344
         test: ____:0000
     response_timeout: 50
     log_level: info
@@ -10,9 +10,9 @@ default:
         nix: ~/.rogue-craft/cache
         windows: null
 
-local:
+development:
     log_level: debug
     log_file: ./rogue-craft.log
     cache_dir:
         nix: ./.cache
-        windows: cache
+        windows: ~ # TODO
