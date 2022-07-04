@@ -1,5 +1,7 @@
 class Menu::Item::BaseItem
-  def update(_active_index, _index, _window)
+  # @param _ctx [Menu::Item::Context]
+  #
+  def draw(_ctx)
     raise NotImplementedError.new(__method__)
   end
 
@@ -10,8 +12,4 @@ class Menu::Item::BaseItem
   def height
     raise NotImplementedError.new(__method__)
   end
-
-  def close; end
-
-  def clear; end
 end

@@ -41,31 +41,19 @@ class Menu::MenuSystem
     open_menu(:logged_in)
   end
 
-  def update
-    @current_menu.update
+  # @param window [Window]
+  #
+  def draw(window)
+    @current_menu.draw(window)
   end
 
   def navigate(input)
     @current_menu.navigate(input)
   end
 
-  def close
-    @instances.values.each(&:close) if @game_state.in_menu?
-  end
-
-  def clear
-    # @interface.clear
-    @current_menu&.clear
-  end
-
   private
 
   def open_menu(type)
-    # clear
-    Ruby2D::Window.clear
-
-    @current_menu&.close
-
     unless @instances[type]
       @instances[type] = @menu_types[type].new(
         self, @game_state, @keymap,

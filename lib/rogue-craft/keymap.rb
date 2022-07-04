@@ -3,8 +3,8 @@ class Keymap
 
   def initialize
     @keys = {
-      menu_up: ['up'],
-      menu_down: ['down'],
+      menu_up: [Gosu::KB_UP],
+      menu_down: [Gosu::KB_DOWN],
       menu_right: [Ncurses::KEY_RIGHT],
       menu_left: [Ncurses::KEY_LEFT],
       start_of_line: [Ncurses::KEY_HOME],
@@ -13,10 +13,10 @@ class Keymap
       left: ['a'.ord],
       down: ['s'.ord],
       right: ['d'.ord],
-      submit: ['return'],
+      submit: [Gosu::KB_ENTER, Gosu::KB_RETURN],
       backspace: [Ncurses::KEY_BACKSPACE],
       delete: [Ncurses::KEY_DC],
-      escape: ['escape']
+      escape: [Gosu::KB_ESCAPE]
     }.freeze
   end
 

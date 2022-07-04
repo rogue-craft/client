@@ -6,7 +6,6 @@ class RogueCraft
   def run
     container = ContainerLoader.load
     container.resolve(:event).subscribe_listeners
-    game_loop = container.resolve(:game_loop)
 
     machine_thread = Thread.new do
       EM.run do
@@ -15,13 +14,8 @@ class RogueCraft
       end
     end
 
-    Ruby2D::Window.update { game_loop.update }
-    Ruby2D::Window.set(resizable: true)
-
-    Ruby2D::Window.show
+    GameWindow.new.show
 
     machine_thread.kill
-  rescue Interrupt
-    container[:game_loop].close
   end
 end

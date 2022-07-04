@@ -1,6 +1,7 @@
 require 'eventmachine'
 require 'ncursesw'
 require 'ruby2d'
+require 'gosu'
 require 'state_machines'
 require 'ostruct'
 require 'fileutils'
@@ -35,7 +36,7 @@ require_relative './command/command'
 
 require_relative './keymap'
 require_relative './game_state'
-require_relative './loop'
+require_relative './game_window'
 require_relative './config'
 
 require_relative './schema/schema'
@@ -64,7 +65,6 @@ class ContainerLoader
     c[:event] = -> { Event::Publisher.new }
 
     c[:camera] = -> { OpenStruct.new(y: 0, x: 0, width: Ncurses.COLS, height: Ncurses.LINES) }
-    c[:game_loop] = -> { Loop.new }
 
     c[:session] = -> { Client::Session.new }
 

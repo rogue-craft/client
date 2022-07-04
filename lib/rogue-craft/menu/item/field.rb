@@ -2,69 +2,49 @@ class Menu::Item::Field < Menu::Item::BaseItem
   attr_reader :submit, :hint
 
   # @param name [String]
+  # @param font [Gosu::Font]
   # @param hint [#call]
   # @param submit [#call]
   #
-  def initialize(name, hint: nil, submit: nil)
+  def initialize(name, font, hint: nil, submit: nil)
     super()
 
+    @name = "  #{name}  "
+    @font = font
     @hint = hint
     @submit = submit
-    @backgrounded = true
-
-    create_componenets(name)
   end
 
-  # @param ctx [Menu::Item::Context
+  # @param ctx [Menu::Item::Context]
   #
-  def update(ctx)
-    @text.x = ctx.x
-    @text.y = ctx.y + ctx.index * 2 * ctx.font_size
-    @text.size = ctx.font_size
-    @text.color = ctx.active? ? 'black' : 'white'
-
-    @bg.x = ctx.x
-    @bg.y = ctx.y + ctx.index * ctx.font_size * 2
-    @bg.width = ctx.width
-    @bg.color = ctx.active? ? 'white' : 'black'
-    @bg.color.opacity = ctx.active? ? 1 : 0
-
-    return unless @backgrounded
-
-    Ruby2D::Window.add(@text)
-    Ruby2D::Window.add(@bg)
-
-    @backgrounded = false
-  end
-
-  private
-
-  def create_componenets(name)
-    @text = Ruby2D::Text.new(
-      '  ' + name,
-      z: 1
+  def draw(ctx)
+    @font.draw_text(
+      @name,
+      ctx.x,
+      ctx.y + ctx.index * 2 * @font.height,
+      1,
+      1,
+      1,
+      ctx.active? ? Gosu::Color::BLACK : Gosu::Color::WHITE
     )
 
-    @bg = Ruby2D::Rectangle.new(
-      height: @text.height,
-      color: 'red',
-      z: 0
+    ctx.window.draw_rect(
+      ctx.x,
+      ctx.y + ctx.index * @font.height * 2,
+      ctx.width,
+      height,
+      ctx.active? ? Gosu::Color::WHITE : Gosu::Color::BLACK,
+      0
     )
   end
-
-  public
 
   def width
-    @text.width
+    @font.text_width(@name)
   end
 
   def height
-    @text.height
+    @font.height
   end
 
-  def close
-    Ruby2D::Window.remove(@text)
-    Ruby2D::Window.remove(@bg)
-    @backgrounded = true
-  end
+  def close; end
 end

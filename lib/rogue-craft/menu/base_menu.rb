@@ -7,72 +7,67 @@ class Menu::BaseMenu
     @keymap = keymap
     @event = event
     @color_scheme = color_scheme
-    @title_text = Ruby2D::Text.new('', size: 16 * 2)
-    @hint_text = Ruby2D::Text.new('', size: 16)
     @items = []
+    @active_index = 0
 
-    @backgrounded = true
+    @title_font = Gosu::Font.new(30)
+    @item_font = Gosu::Font.new(16)
+
+    @intialized = false
 
     create_items
-    init
   end
 
   private
 
-  def init
-    @active_index = 0
+  # @param window [Window]
+  #
+  def init(window)
+    return if @intialized
 
     @width = @items.max_by(&:width).width
     @height = @items.reduce(1) { |acc, i| acc + i.height }
 
-    max_width = Ruby2D::Window.width
-    max_height = Ruby2D::Window.height
+    max_width = window.width
+    max_height = window.height
 
     @x = (max_width - @width) / 2
     @y = (max_height / 3)
 
-    title = create_title
-
-    return unless title
-
-    @title_text.text = title
-    @title_text.y = @y
-    @title_text.x = @x - (@title_text.width - @width) / 2
-
-    close
+    @intialized = true
   end
 
   public
 
-  def update
+  # @param window [Window]
+  #
+  def draw(window)
+    init(window)
+
     x = @x
-    y = @title_text ? @y + @title_text.height + SECTION_PADDING : @y
+    y = @y
 
-    hint = @items[@active_index].hint
+    if (title = create_title)
+      @title_font.draw_text(title, x - (@title_font.text_width(title) - @width) / 2, y, 0)
 
-    if hint
-      @hint_text.text = hint
-      @hint_text.y = y
-      @hint_text.x = x - (@hint_text.width - @width) / 2
-
-      y = y + @hint_text.height + SECTION_PADDING * 2
+      y += @title_font.height + SECTION_PADDING
     end
 
-    if @backgrounded
-      Ruby2D::Window.add(@title_text) if @title_text
-      Ruby2D::Window.add(@hint_text)
+    if (hint = @items[@active_index].hint)
+      @item_font.draw_text(hint, x - (@item_font.text_width(hint) - @width) / 2, y, 0)
 
-      @backgrounded = false
+      y += @item_font.height + SECTION_PADDING * 2
     end
 
     @items.each_with_index do |item, index|
-      item.update(
-        Menu::Item::Context.new(x, y, @width, @height, index, @active_index == index)
+      item.draw(
+        Menu::Item::Context.new(window, x, y, @width, @height, index, @active_index == index)
       )
     end
   end
 
   def navigate(input)
+    # Gosu.button_down?
     # if current.is_a?(Menu::Item::Form)
     #   current.navigate(input)
     #   return
@@ -93,19 +88,6 @@ class Menu::BaseMenu
     @active_index = 0 if @active_index > max
   end
 
-  def close
-    @items.each(&:close)
-
-    Ruby2D::Window.remove(@title_text)
-    Ruby2D::Window.remove(@hint_text)
-
-    @backgrounded = true
-  end
-
-  def clear
-    @items.each(&:clear)
-  end
-
   private
 
   def create_title; end
@@ -115,7 +97,7 @@ class Menu::BaseMenu
   end
 
   def item(name, hint: nil, submit: nil)
-    @items << Menu::Item::Field.new(name, hint: hint, submit: submit)
+    @items << Menu::Item::Field.new(name, @item_font, hint: hint, submit: submit)
   end
 
   def form(fields, width, submit)

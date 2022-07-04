@@ -1,14 +1,19 @@
+# @!attribute [r] window
+#   @return [Gosu::Window]
+#
 class Menu::Item::Context
-  attr_reader :x, :y, :width, :height, :index, :font_size
+  attr_reader :window, :x, :y, :width, :height, :index
 
-  def initialize(x, y, width, height, index, active)
+  # @param window [GameWindow]
+  #
+  def initialize(window, x, y, width, height, index, active)
+    @window = window
     @x = x
     @y = y
     @width = width
     @height = height
     @index = index
     @active = active
-    @font_size = 30
   end
 
   def active?
