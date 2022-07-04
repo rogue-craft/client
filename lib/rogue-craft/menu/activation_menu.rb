@@ -1,9 +1,9 @@
 class Menu::Activation < Menu::BaseMenu
-
   private
+
   def create_items
     fields = [
-      input(:activation_code, "Activation Code"),
+      input(:activation_code, 'Activation Code')
     ]
 
     form(

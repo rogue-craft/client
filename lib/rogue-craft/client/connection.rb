@@ -1,5 +1,4 @@
 class Client::Connection < EventMachine::Connection
-
   def initialize(event)
     @event = event
   end

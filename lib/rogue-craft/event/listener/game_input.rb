@@ -1,5 +1,4 @@
 class Event::Listener::GameInput
-
   include Dependency[:command_queue]
 
   def on_input(event)

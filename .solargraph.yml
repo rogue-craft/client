@@ -3,6 +3,7 @@ include:
   - "**/*.rb"
 require:
   - 'rogue-craft-common'
+  - 'ruby2d'
 domains: []
 reporters:
   - rubocop

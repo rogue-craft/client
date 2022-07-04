@@ -1,5 +1,4 @@
 class Display::Renderer::World
-
   include Dependency[:interface, :color_scheme]
 
   def render(snapshot)
@@ -20,12 +19,13 @@ class Display::Renderer::World
   end
 
   private
+
   def display_entity(entity, win, center_x, center_y, player)
     x = center_x - (player[:x] - entity[:x])
     y = center_y + (player[:y] - entity[:y])
 
     if style = @color_scheme[entity[:type]]
-      char = "#{player[:x].to_s} - #{player[:y].to_s}"|| '*'
+      char = "#{player[:x]} - #{player[:y]}" || '*'
       color = style[:color_pair]
     else
       char = '*'

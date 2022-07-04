@@ -1,11 +1,10 @@
 class Keymap
-
   TAB = 9
 
   def initialize
     @keys = {
-      menu_up: [Ncurses::KEY_BTAB],
-      menu_down: [TAB],
+      menu_up: ['up'],
+      menu_down: ['down'],
       menu_right: [Ncurses::KEY_RIGHT],
       menu_left: [Ncurses::KEY_LEFT],
       start_of_line: [Ncurses::KEY_HOME],
@@ -14,15 +13,15 @@ class Keymap
       left: ['a'.ord],
       down: ['s'.ord],
       right: ['d'.ord],
-      submit: [10, Ncurses::KEY_ENTER],
+      submit: ['return'],
       backspace: [Ncurses::KEY_BACKSPACE],
       delete: [Ncurses::KEY_DC],
-      escape: [Ncurses::KEY_F2]
+      escape: ['escape']
     }.freeze
   end
 
   def key_of(input)
-    @keys.find {|_, values| values.include?(input) }&.first
+    @keys.find { |_, values| values.include?(input) }&.first
   end
 
   def is?(val, key)
@@ -30,6 +29,6 @@ class Keymap
   end
 
   def include?(keys, val)
-    keys.any? {|key| is?(val, key)}
+    keys.any? { |key| is?(val, key) }
   end
 end

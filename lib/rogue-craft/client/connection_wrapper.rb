@@ -1,11 +1,8 @@
 class Client::ConnectionWrapper
-
   def initialize(underlying = nil)
     @underlying = nil
 
-    if underlying
-      self.underlying = underlying
-    end
+    self.underlying = underlying if underlying
   end
 
   def send_data(data)
@@ -13,15 +10,11 @@ class Client::ConnectionWrapper
   end
 
   def close_connection
-    if @underlying
-      @underlying.close_connection
-    end
+    @underlying&.close_connection
   end
 
   def underlying=(underlying)
-    unless underlying.is_a?(Client::Connection)
-      raise ArgumentError.new("Underlying connection must be a #{Client::Connection.name}")
-    end
+    raise ArgumentError.new("Underlying connection must be a #{Client::Connection.name}") unless underlying.is_a?(Client::Connection)
 
     @underlying = underlying
   end

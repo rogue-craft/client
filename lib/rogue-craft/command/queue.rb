@@ -1,5 +1,4 @@
 class Command::Queue < Handler::AuthenticatedHandler
-
   include Dependency[:commmand_factories]
 
   def initialize(**args)

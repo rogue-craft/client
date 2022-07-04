@@ -2,7 +2,6 @@ require 'yaml'
 require 'optparse'
 
 class Config
-
   def initialize(path)
     @values = {}
     load(path)
@@ -35,23 +34,24 @@ class Config
   end
 
   private
+
   def load(path)
     cli_opts = {
       env: :default
     }
 
     OptionParser.new do |opts|
-      opts.on("-e ENV", "--env ENV", "Set alternative env config") do |env|
+      opts.on('-e ENV', '--env ENV', 'Set alternative env config') do |env|
         cli_opts[:env] = env.to_sym
       end
     end.parse!
 
     env = cli_opts.fetch(:env, :default).to_sym
-    cfg = YAML.load(File.open(path), symbolize_names: true)
+    cfg = YAML.safe_load(File.open(path), symbolize_names: true)
 
     @values = cfg[:default]
-      .merge(cfg.fetch(env, {}))
-      .merge(cli_opts)
+              .merge(cfg.fetch(env, {}))
+              .merge(cli_opts)
 
     @values[:cache_dir] = @values[:cache_dir][OS.posix? ? :nix : :windows]
   end

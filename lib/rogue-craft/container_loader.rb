@@ -1,5 +1,6 @@
 require 'eventmachine'
 require 'ncursesw'
+require 'ruby2d'
 require 'state_machines'
 require 'ostruct'
 require 'fileutils'
@@ -9,9 +10,7 @@ require 'dry-container'
 require 'dry-auto_inject'
 require 'dry/events/publisher'
 
-
 class Container < Dry::Container
-
   def register(name, val, opts = {}, &block)
     opts.merge!(memoize: true)
     super
@@ -23,7 +22,6 @@ class Container < Dry::Container
 end
 
 Dependency = Dry::AutoInject(Container.new)
-
 
 require 'rogue-craft-common'
 
@@ -44,9 +42,8 @@ require_relative './schema/schema'
 require_relative './route_map'
 
 class ContainerLoader
-
-  CONFIG_PATH = File.expand_path(__dir__ + '../../../config/config.yml').freeze
-  COLOR_SCHEME_PATH = File.expand_path(__dir__ + '../../../config/color_scheme.yml').freeze
+  CONFIG_PATH = File.expand_path("#{__dir__}../../../config/config.yml").freeze
+  COLOR_SCHEME_PATH = File.expand_path("#{__dir__}../../../config/color_scheme.yml").freeze
 
   def self.load
     c = Dependency.container
@@ -76,7 +73,7 @@ class ContainerLoader
     c[:renderer_strategy] = -> { [Display::Renderer::World.new] }
     c[:renderer] = -> { Display::Renderer.new }
 
-    c[:commmand_factories] = -> { [ Command::Factory::DirectionChange.new ] }
+    c[:commmand_factories] = -> { [Command::Factory::DirectionChange.new] }
     c[:command_queue] = -> { Command::Queue.new }
 
     register_rpc(c)
@@ -84,7 +81,6 @@ class ContainerLoader
     c
   end
 
-  private
   def self.logger(cfg)
     FileUtils.mkdir_p(File.dirname(cfg[:log_file]))
 
@@ -100,7 +96,7 @@ class ContainerLoader
     c[:default_connection] = -> { Client::ConnectionWrapper.new }
     c[:serializer] = -> { RPC::Serializer.new(c[:logger]) }
     c[:router] = -> { RPC::Router.new(RouteMap.new.load, c[:logger]) }
-    c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger] ) }
+    c[:async_store] = -> { RPC::AsyncStore.new(cfg[:response_timeout], c[:logger]) }
     c[:snapshot_handler] = -> { Handler::Snapshot.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection]) }
   end

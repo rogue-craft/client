@@ -1,5 +1,4 @@
 class Display::Interface
-
   def initialize
     init_ncurses
   end
@@ -37,15 +36,16 @@ class Display::Interface
   end
 
   private
+
   def init_ncurses
-    Ncurses.initscr
-    Ncurses.start_color
-    Ncurses.use_default_colors
-    Ncurses.cbreak
-    Ncurses.noecho
-    # Ncurses.curs_set(0)
-    Ncurses.stdscr.intrflush(false)
-    Ncurses.stdscr.keypad(true)
-    Ncurses.stdscr.nodelay(true)
+    # Ncurses.initscr
+    # Ncurses.start_color
+    # Ncurses.use_default_colors
+    # Ncurses.cbreak
+    # Ncurses.noecho
+    # # Ncurses.curs_set(0)
+    # Ncurses.stdscr.intrflush(false)
+    # Ncurses.stdscr.keypad(true)
+    # Ncurses.stdscr.nodelay(true)
   end
 end

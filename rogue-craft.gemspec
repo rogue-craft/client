@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'eventmachine'
   spec.add_runtime_dependency 'ncursesw', '~> 1.4'
+  spec.add_runtime_dependency 'ruby2d'
   spec.add_runtime_dependency 'os', '~> 1.0.0'
   spec.add_runtime_dependency 'state_machines', '~> 0.5'
 

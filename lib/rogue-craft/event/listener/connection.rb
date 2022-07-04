@@ -1,5 +1,4 @@
 class Event::Listener::Connection < Handler::AuthenticatedHandler
-
   include Dependency[:menu_system, :config, :event, :default_connection, :clock]
 
   def on_server_selection(event)
@@ -18,6 +17,7 @@ class Event::Listener::Connection < Handler::AuthenticatedHandler
   end
 
   private
+
   def check_token_validity
     send_msg(target: 'meta/ping') do |response|
       if response.code?(RPC::Code::OK)
@@ -31,6 +31,7 @@ class Event::Listener::Connection < Handler::AuthenticatedHandler
   end
 
   public
+
   def on_disconnection(_)
     @default_connection.close_connection
     @session.close

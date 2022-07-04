@@ -1,5 +1,4 @@
 class Event::Listener::Auth < RPC::InjectedHandler
-
   include Dependency[:session, :menu_system]
 
   def on_registration(event)
@@ -32,15 +31,16 @@ class Event::Listener::Auth < RPC::InjectedHandler
   end
 
   def on_logout(_)
-    send_msg(target: 'auth/logout') do 
+    send_msg(target: 'auth/logout') do
       @session.clear
       @menu_system.open_main
     end
   end
 
   private
+
   def handle_form(response, form, success)
-    if response[:violations] || false == response.code?(RPC::Code::OK)
+    if response[:violations] || response.code?(RPC::Code::OK) == false
       form.errors = response.fetch(:violations, {'Unexpected error': 'Please try again later :('})
     else
       success.call

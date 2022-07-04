@@ -7,4 +7,3 @@ class Display::Renderer
     @renderer_strategy.each { |r| r.render(snapshot) }
   end
 end
-

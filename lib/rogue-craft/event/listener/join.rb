@@ -1,5 +1,4 @@
 class Event::Listener::Join < Handler::AuthenticatedHandler
-
   include Dependency[:game_state, :menu_system]
 
   def on_join_game(_)

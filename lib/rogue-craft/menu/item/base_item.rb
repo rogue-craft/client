@@ -1,6 +1,5 @@
 class Menu::Item::BaseItem
-
-  def display(_active_index, _index, _window)
+  def update(_active_index, _index, _window)
     raise NotImplementedError.new(__method__)
   end
 
@@ -12,9 +11,7 @@ class Menu::Item::BaseItem
     raise NotImplementedError.new(__method__)
   end
 
-  def close
-  end
+  def close; end
 
-  def clear
-  end
+  def clear; end
 end

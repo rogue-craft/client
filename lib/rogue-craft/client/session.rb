@@ -1,5 +1,4 @@
 class Client::Session
-
   include Dependency[:config]
 
   def initialize(**args)
@@ -15,14 +14,14 @@ class Client::Session
   end
 
   def token=(token)
-    raise RuntimeError.new('Session.token is already set') if @values[:token]
+    raise 'Session.token is already set' if @values[:token]
 
     @values[:token] = token
     dump
   end
 
   def logged_in?
-    nil != @values[:token]
+    @values[:token] != nil
   end
 
   def clear
@@ -45,6 +44,7 @@ class Client::Session
   end
 
   private
+
   def dump
     File.open(store_path, 'w+') do |f|
       f.write(MessagePack.pack(@values))
@@ -54,7 +54,7 @@ class Client::Session
   def store_path
     return nil unless @config.server_selected?
 
-    file = "session-%s-%d-%s" % [@config[:ip].gsub('.', '_'), @config[:port], @config[:env].to_s]
+    file = format('session-%s-%d-%s', @config[:ip].gsub('.', '_'), @config[:port], @config[:env].to_s)
 
     File.join(@config[:cache_dir], file)
   end

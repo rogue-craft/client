@@ -1,5 +1,4 @@
 class Command::Factory::DirectionChange
-
   include Dependency[:keymap]
 
   KEY_TO_DIRECTION_MAP = {
@@ -21,10 +20,11 @@ class Command::Factory::DirectionChange
   end
 
   private
+
   def direction_of(input)
     direction = KEY_TO_DIRECTION_MAP[@keymap.key_of(input)]
 
-    raise ArgumentError.new('No direction for input ' + input.chr) unless direction
+    raise ArgumentError.new("No direction for input #{input.chr}") unless direction
 
     direction
   end

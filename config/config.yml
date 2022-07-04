@@ -1,8 +1,12 @@
 ---
 default:
     servers:
-        local: localhost:8081
-        test: ____:0000
+        development:
+          host: localhost:8081
+          hint: Your development server running locally
+        test:
+          host: ____:0000
+          hint: Beta test server
     response_timeout: 50
     log_level: info
     log_file: ~/.rogue-craft/rogue-craft.log
@@ -10,7 +14,7 @@ default:
         nix: ~/.rogue-craft/cache
         windows: null
 
-local:
+development:
     log_level: debug
     log_file: ./rogue-craft.log
     cache_dir:

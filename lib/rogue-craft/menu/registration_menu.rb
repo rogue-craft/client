@@ -1,12 +1,12 @@
 class Menu::Registration < Menu::BaseMenu
-
   private
+
   def create_items
     fields = [
-      input(:nickname, "Nickname"),
-      input(:email, "Email"),
-      input(:password, "Password", password: true),
-      input(:password_confirmation, "Password Confirmation", password: true),
+      input(:nickname, 'Nickname'),
+      input(:email, 'Email'),
+      input(:password, 'Password', password: true),
+      input(:password_confirmation, 'Password Confirmation', password: true)
     ]
 
     form(

@@ -1,6 +1,5 @@
 class Menu::MenuSystem
-
-  include Dependency[:game_state, :interface, :keymap, :event, :color_scheme]
+  include Dependency[:game_state, :keymap, :event, :color_scheme]
 
   def initialize(**args)
     @menu_types = {
@@ -42,8 +41,8 @@ class Menu::MenuSystem
     open_menu(:logged_in)
   end
 
-  def render
-    @current_menu.render
+  def update
+    @current_menu.update
   end
 
   def navigate(input)
@@ -51,26 +50,26 @@ class Menu::MenuSystem
   end
 
   def close
-    if @game_state.in_menu?
-      @instances.values.each(&:close)
-    end
+    @instances.values.each(&:close) if @game_state.in_menu?
   end
 
   def clear
-    if @current_menu
-      @interface.clear
-      @current_menu.clear
-    end
+    # @interface.clear
+    @current_menu&.clear
   end
 
   private
+
   def open_menu(type)
-    clear
+    # clear
+    Ruby2D::Window.clear
+
+    @current_menu&.close
 
     unless @instances[type]
       @instances[type] = @menu_types[type].new(
-          self, @game_state, @keymap,
-          @interface, @event, @color_scheme
+        self, @game_state, @keymap,
+        @event, @color_scheme
       )
     end
 

@@ -1,5 +1,4 @@
 class GameState
-
   def initialize
     @in_menu = true
     @in_game = false
@@ -18,7 +17,7 @@ class GameState
     @in_game = true
   end
 
-  def closed?; @closed end
-  def in_menu?; @in_menu end
-  def in_game?; @in_game end
+  def closed? = @closed
+  def in_menu? = @in_menu
+  def in_game? = @in_game
 end

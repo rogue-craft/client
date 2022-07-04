@@ -1,10 +1,10 @@
 class Event::Publisher
   include Dry::Events::Publisher[:default]
 
-  EVENTS = [
-    :registration, :login, :activation, :logout,
-    :server_selection, :check_token, :disconnection, :join_game,
-    :input, :end_of_input
+  EVENTS = %i[
+    registration login activation logout
+    server_selection check_token disconnection join_game
+    input end_of_input
   ].freeze
 
   def subscribe_listeners

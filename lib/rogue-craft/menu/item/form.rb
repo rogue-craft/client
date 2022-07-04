@@ -1,5 +1,4 @@
 class Menu::Item::Form < Menu::Item::BaseItem
-
   attr_reader :width
 
   def initialize(models, keymap, color_scheme, width, submit)
@@ -31,14 +30,12 @@ class Menu::Item::Form < Menu::Item::BaseItem
   end
 
   def display(_active_index, _index, window)
-
     if @underlying_form
       display_existing
       return
     end
 
     underlying_fields = @models.flat_map.with_index do |model, i|
-
       label = Ncurses::Form.new_field(1, model.label.length, i * 3, 0, 0, 0)
       label.set_field_buffer(0, model.label)
       label.field_opts_off(Ncurses::Form::O_ACTIVE)
@@ -49,9 +46,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
       field.field_opts_off(Ncurses::Form::O_AUTOSKIP)
       field.field_opts_off(Ncurses::Form::O_STATIC)
 
-      if model.password?
-        field.set_field_fore(@color_scheme[:menu_password_field][:color_pair])
-      end
+      field.set_field_fore(@color_scheme[:menu_password_field][:color_pair]) if model.password?
 
       @field_model_map[field] = model
 
@@ -66,8 +61,8 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @underlying_form = form
   end
 
-
   private
+
   def display_existing
     return unless @render_existing
 
@@ -76,12 +71,12 @@ class Menu::Item::Form < Menu::Item::BaseItem
     full = height
     y = full / 2
 
-    (full - y).times { |i| win.mvaddstr(y + i, 0, " ".rjust(@width))}
+    (full - y).times { |i| win.mvaddstr(y + i, 0, ' '.rjust(@width)) }
 
     @underlying_form.post_form
 
     @errors.each do |field, errors|
-      win.mvaddstr(y, 0, field.to_s + ': ' + errors.join(', '))
+      win.mvaddstr(y, 0, "#{field}: #{errors.join(', ')}")
       y += 2
     end
 
@@ -91,6 +86,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
   end
 
   public
+
   def navigate(input)
     if @keymap.is?(input, :menu_up)
       @underlying_form.form_driver(Ncurses::Form::REQ_PREV_FIELD)
@@ -120,7 +116,7 @@ class Menu::Item::Form < Menu::Item::BaseItem
   end
 
   def height
-    full_h = @models.reduce(1) { |h, f| h + f.height + 2}
+    full_h = @models.reduce(1) { |h, f| h + f.height + 2 }
 
     # space for errors
     full_h * 2
@@ -132,8 +128,8 @@ class Menu::Item::Form < Menu::Item::BaseItem
     @field_model_map.map do |f, m|
       [m.name, f.field_buffer(0).strip]
     end
-      .to_h
-      .reject { |_, val| val.empty? }
+                    .to_h
+                    .reject { |_, val| val.empty? }
   end
 
   def errors=(errors)
