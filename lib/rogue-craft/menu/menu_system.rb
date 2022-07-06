@@ -1,5 +1,5 @@
 class Menu::MenuSystem
-  include Dependency[:game_state, :keymap, :event, :color_scheme]
+  include Dependency[:keymap, :event, :color_scheme]
 
   def initialize(**args)
     @menu_types = {
@@ -11,10 +11,17 @@ class Menu::MenuSystem
       logged_in: Menu::LoggedIn
     }
     @instances = {}
+    @window = nil
 
     super
+  end
 
-    open_menu(:servers)
+  # @param window [GameWindow]
+  #
+  def window=(window)
+    raise ArgumentError.new('Window is already set') if @window
+
+    @window = window
   end
 
   def open_servers
@@ -41,10 +48,10 @@ class Menu::MenuSystem
     open_menu(:logged_in)
   end
 
-  # @param window [Window]
-  #
-  def draw(window)
-    @current_menu.draw(window)
+  def draw(input_text)
+    open_servers unless @current_menu
+
+    @current_menu.draw(input_text)
   end
 
   def navigate(input)
@@ -56,7 +63,7 @@ class Menu::MenuSystem
   def open_menu(type)
     unless @instances[type]
       @instances[type] = @menu_types[type].new(
-        self, @game_state, @keymap,
+        @window, self, @keymap,
         @event, @color_scheme
       )
     end

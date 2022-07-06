@@ -1,6 +1,5 @@
 require 'eventmachine'
 require 'ncursesw'
-require 'ruby2d'
 require 'gosu'
 require 'state_machines'
 require 'ostruct'
@@ -51,6 +50,7 @@ class ContainerLoader
 
     config = Config.new(CONFIG_PATH)
 
+    c[:window] = -> { GameWindow.new }
     c[:clock] = -> { Interpolation::Clock.new }
     c[:config] = -> { config }
 

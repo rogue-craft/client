@@ -6,7 +6,6 @@ default:
           hint: Your development server running locally
         test:
           host: ____:0000
-          hint: Beta test server
     response_timeout: 50
     log_level: info
     log_file: ~/.rogue-craft/rogue-craft.log

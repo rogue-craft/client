@@ -21,7 +21,7 @@ class Menu::Item::Field < Menu::Item::BaseItem
     @font.draw_text(
       @name,
       ctx.x,
-      ctx.y + ctx.index * 2 * @font.height,
+      ctx.y,
       1,
       1,
       1,
@@ -30,9 +30,9 @@ class Menu::Item::Field < Menu::Item::BaseItem
 
     ctx.window.draw_rect(
       ctx.x,
-      ctx.y + ctx.index * @font.height * 2,
+      ctx.y,
       ctx.width,
-      height,
+      height - PADDING,
       ctx.active? ? Gosu::Color::WHITE : Gosu::Color::BLACK,
       0
     )
@@ -43,8 +43,6 @@ class Menu::Item::Field < Menu::Item::BaseItem
   end
 
   def height
-    @font.height
+    @font.height + PADDING
   end
-
-  def close; end
 end

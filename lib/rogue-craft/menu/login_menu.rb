@@ -1,16 +1,13 @@
 class Menu::Login < Menu::BaseMenu
   private
 
-  def create_items
-    fields = [
-      input(:nickname, 'Nickname'),
-      input(:password, 'Password', password: true)
-    ]
+  def create_title
+    'Login'
+  end
 
-    form(
-      fields,
-      40,
-      proc { |form| @event.publish(:login, {form: form}) }
-    )
+  def create_items
+    input(:nickname, 'Nickname')
+    input(:password, 'Password', password: true)
+
   end
 end

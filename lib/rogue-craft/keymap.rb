@@ -5,8 +5,8 @@ class Keymap
     @keys = {
       menu_up: [Gosu::KB_UP],
       menu_down: [Gosu::KB_DOWN],
-      menu_right: [Ncurses::KEY_RIGHT],
-      menu_left: [Ncurses::KEY_LEFT],
+      input_right: [Gosu::KB_RIGHT],
+      input_left: [Gosu::KB_LEFT],
       start_of_line: [Ncurses::KEY_HOME],
       end_of_line: [360, Ncurses::KEY_END],
       up: ['w'.ord],
@@ -14,7 +14,7 @@ class Keymap
       down: ['s'.ord],
       right: ['d'.ord],
       submit: [Gosu::KB_ENTER, Gosu::KB_RETURN],
-      backspace: [Ncurses::KEY_BACKSPACE],
+      backspace: [Gosu::KB_BACKSPACE],
       delete: [Ncurses::KEY_DC],
       escape: [Gosu::KB_ESCAPE]
     }.freeze

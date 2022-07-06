@@ -15,15 +15,19 @@ class Menu::Servers < Menu::BaseMenu
     @config[:servers].each do |name, server|
       next if name == :development && env != :development
 
-      item(
+      field(
         name.to_s,
         submit: -> { @event.publish(:server_selection, {server: server[:host]}) },
         hint: server[:hint]
       )
     end
+
+    line
+
+    field('Exit')
   end
 
   def create_title
-    'Select a server'
+    'Join Game'
   end
 end
